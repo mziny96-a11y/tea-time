@@ -40,8 +40,8 @@ main{max-width:720px;margin:0 auto;padding:16px}
 .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:12px}
 .narrow{max-width:440px;margin:24px auto}
 label{display:block;font-weight:600;font-size:14px;margin:10px 0}
-input,textarea{display:block;width:100%;margin-top:4px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:16px}
-input:focus,textarea:focus{outline:2px solid var(--accent-2);border-color:transparent}
+input,textarea,select{display:block;width:100%;margin-top:4px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:16px}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent-2);border-color:transparent}
 .empty{text-align:center;padding:48px 16px}.empty .big{font-size:52px}
 .demo-banner{background:#fff1d6;color:#7a5200;padding:8px 16px;font-size:13.5px;text-align:center}
 .conn-err{background:var(--danger);color:#fff;text-align:center;padding:8px;font-weight:700}
@@ -141,6 +141,15 @@ body.cashier main{max-width:1400px}
 .star-btn{border:0;background:transparent;font-size:20px;cursor:pointer;opacity:.25;filter:grayscale(1);padding:0 4px}.star-btn.on{opacity:1;filter:none}
 .chk-inline{display:flex;align-items:center;gap:8px;margin:12px 0}.chk-inline input{width:auto;margin:0}
 .disc-line{color:var(--ok)}
+.ctable{width:100%;border-collapse:collapse;font-size:14px}
+.ctable th{text-align:right;color:var(--muted);font-weight:700;padding:8px;border-bottom:2px solid var(--line);white-space:nowrap}
+.ctable td{padding:9px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.ctable tr[data-p]{cursor:pointer}.ctable tr[data-p]:hover{background:#faf6f0}
+.wa{color:#1f9d55;font-weight:700;text-decoration:none;margin-inline-start:6px}
+.mini-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:10px 0}
+.mini-stats div{background:#f6f1ea;border-radius:10px;padding:8px 10px}.mini-stats small{display:block;color:var(--muted);font-size:12px}.mini-stats b{font-size:16px}
+.hist{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:6px 0;font-size:14px}
+#custModal .sheet{max-width:760px}
 @media (max-width:900px){.board{grid-template-columns:1fr}}
 @media (max-width:560px){.mrow{grid-template-columns:1fr auto auto}.mrow .price{grid-column:1}}
 @media print{body{background:#fff}.no-print{display:none!important}main{padding:0}.qr-grid{grid-template-columns:repeat(3,1fr);gap:8px}.qr-card{border:1.5px dashed #999}}
@@ -172,6 +181,7 @@ body.cashier main{max-width:1400px}
         <form id="regForm" novalidate>
           <label>الاسم<input id="name" autocomplete="name" maxlength="40" required></label>
           <label>رقم الموبايل<input id="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="15" dir="ltr" placeholder="01xxxxxxxxx" required></label>
+          <p class="muted sm">بنسجّل اسمك ورقمك عشان نتابع طلباتك ونوصّلك بعروضنا.</p>
           <p class="err" id="regErr"></p>
           <button class="btn primary block" type="submit">اعرض المنيو</button>
         </form>
@@ -260,6 +270,7 @@ body.cashier main{max-width:1400px}
       <button data-tab="orders" class="on">الطلبات <span class="count" id="cntNew"></span></button>
       <button data-tab="bills">الحسابات <span class="count" id="cntBills"></span></button>
       <button data-tab="menu">المنيو والأسعار</button>
+      <button data-tab="customers">العملاء <span class="count" id="cntCust"></span></button>
       <button data-tab="qr">أكواد QR</button>
       <button data-tab="settings">الإعدادات</button>
     </nav>
@@ -308,6 +319,24 @@ body.cashier main{max-width:1400px}
         <div id="menuAdmin"></div>
         <p class="center"><button class="btn ghost sm" id="resetMenu" type="button">↺ رجّع منيو Tea Time الأساسي</button></p>
       </div>
+
+      <div class="tab" id="tab-customers" hidden>
+        <div class="stats" id="custStats"></div>
+        <div class="card no-print">
+          <div class="form-grid" style="align-items:end">
+            <label>بحث بالاسم أو الرقم<input id="custSearch" placeholder="اكتب اسم أو رقم"></label>
+            <label>ترتيب حسب<select id="custSort">
+              <option value="last">آخر زيارة</option><option value="visits">الأكثر زيارة</option>
+              <option value="spent">الأكثر شراء</option><option value="new">الأحدث تسجيلاً</option></select></label>
+            <div><button class="btn ghost block" id="custExport" type="button" style="margin:10px 0">⬇️ تصدير Excel</button></div>
+          </div>
+        </div>
+        <div class="card" style="overflow-x:auto">
+          <table class="ctable"><thead><tr><th>العميل</th><th>الموبايل</th><th>الزيارات</th><th>طلبات مدفوعة</th><th>المشتريات</th><th>آخر زيارة</th></tr></thead>
+          <tbody id="custBody"></tbody></table>
+        </div>
+      </div>
+      <div class="sheet-bg" id="custModal" hidden><div class="sheet" id="custDetail"></div></div>
 
       <div class="tab" id="tab-qr" hidden>
         <div class="card no-print">
@@ -399,6 +428,12 @@ const EMAIL_DOMAIN = '@teatime-local.app';
 const userToEmail = u => { u = (u || '').trim().toLowerCase(); return u.includes('@') ? u : u.replace(/[^a-z0-9_.-]/g, '') + EMAIL_DOMAIN; };
 const validLogin = u => /^[a-zA-Z0-9_.-]{3,}$/.test(u);
 const emailToUser = e => String(e || '').replace(EMAIL_DOMAIN, '');
+function normPhone(p) {
+  p = toEn(p).replace(/[^\d+]/g, '');
+  if (p.startsWith('+20')) p = '0' + p.slice(3); else if (p.startsWith('0020')) p = '0' + p.slice(4); else if (/^20\d{10}$/.test(p)) p = '0' + p.slice(2);
+  return p;
+}
+function waLink(p) { let d = String(p).replace(/\D/g, ''); if (/^0\d{10}$/.test(d)) d = '20' + d.slice(1); return 'https://wa.me/' + d; }
 const cleanUrl = u => (u || '').trim().replace(/\/rest\/v1\/?.*$/i, '').replace(/\/+$/, '');
 let toastT;
 function toast(msg, bad) {
@@ -415,7 +450,7 @@ function billCalc(sub) {
   return { disc, svc, total: sub - disc + svc };
 }
 const discLabel = () => (S.discount_label ? S.discount_label + ' ' : 'خصم ') + Number(S.bill_discount) + '%';
-const dbErr = e => /column|schema cache/i.test(String(e && e.message)) ? 'قاعدة البيانات محتاجة تحديث: من الإعدادات انسخ كود SQL وشغّله تاني في Supabase.' : (e && e.message) || String(e);
+const dbErr = e => /column|schema cache|does not exist/i.test(String(e && e.message)) ? 'قاعدة البيانات محتاجة تحديث: من الإعدادات انسخ كود SQL وشغّله تاني في Supabase.' : (e && e.message) || String(e);
 function applyName() {
   $$('.cafeName').forEach(e => e.textContent = S.cafe_name);
   $$('img[data-logo]').forEach(i => { if (!i.src) i.src = i.dataset.logo === 'full' ? LOGO_FULL : LOGO_BADGE; });
@@ -519,6 +554,52 @@ create policy "menu staff" on public.menu_items for all to authenticated using (
 drop policy if exists "orders staff" on public.orders;
 create policy "orders staff" on public.orders for all to authenticated using (public.is_staff()) with check (public.is_staff());
 
+-- ===== متابعة العملاء =====
+create table if not exists public.customers (
+  phone text primary key,
+  name text not null,
+  first_seen timestamptz not null default now(),
+  last_seen timestamptz not null default now(),
+  visits int not null default 1,
+  notes text
+);
+alter table public.customers enable row level security;
+grant select, update, delete on public.customers to authenticated;
+drop policy if exists "customers staff" on public.customers;
+create policy "customers staff" on public.customers for all to authenticated using (public.is_staff()) with check (public.is_staff());
+
+-- العملاء اللي طلبوا قبل ما الميزة دي تتضاف
+insert into public.customers (phone, name, first_seen, last_seen, visits)
+select customer_phone, (array_agg(customer_name order by created_at desc))[1], min(created_at), max(created_at), count(distinct session_id)
+from public.orders group by customer_phone
+on conflict (phone) do nothing;
+
+-- بتتنادى لما الزبون يكتب اسمه ورقمه (الزيارة بتتحسب لو آخر مرة كانت من أكتر من ساعتين)
+create or replace function public.register_customer(p_name text, p_phone text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if coalesce(length(trim(p_name)), 0) < 2 then raise exception 'invalid name'; end if;
+  if coalesce(p_phone, '') !~ '^\+?[0-9]{8,15}$' then raise exception 'invalid phone'; end if;
+  insert into public.customers (phone, name) values (p_phone, left(trim(p_name), 40))
+  on conflict (phone) do update set name = excluded.name, last_seen = now(),
+    visits = public.customers.visits + case when public.customers.last_seen < now() - interval '2 hours' then 1 else 0 end;
+end $$;
+
+create or replace function public.list_customers()
+returns table (phone text, name text, first_seen timestamptz, last_seen timestamptz, visits int, notes text,
+               orders_count bigint, total_spent numeric, last_order timestamptz)
+language sql stable security definer set search_path = public as $$
+  select c.phone, c.name, c.first_seen, c.last_seen, c.visits, c.notes,
+         count(o.id) filter (where o.status = 'paid'),
+         coalesce(sum(o.total) filter (where o.status = 'paid'), 0),
+         max(o.created_at)
+  from public.customers c
+  left join public.orders o on o.customer_phone = c.phone
+  where public.is_staff()
+  group by c.phone
+  order by c.last_seen desc;
+$$;
+
 -- الزبون بيطلب عن طريق الدالة دي بس، والأسعار بتتحسب من المنيو على السيرفر
 create or replace function public.place_order(p_session uuid, p_table int, p_name text, p_phone text, p_items jsonb, p_note text default null)
 returns public.orders language plpgsql security definer set search_path = public as $$
@@ -547,6 +628,8 @@ begin
   insert into public.orders (session_id, table_no, customer_name, customer_phone, items, total, note)
   values (p_session, p_table, left(trim(p_name), 40), p_phone, v_items, v_total, left(nullif(trim(coalesce(p_note, '')), ''), 300))
   returning * into v_order;
+  insert into public.customers (phone, name) values (p_phone, left(trim(p_name), 40))
+  on conflict (phone) do update set name = excluded.name, last_seen = now();
   return v_order;
 end $$;
 
@@ -592,6 +675,8 @@ grant execute on function public.claim_first_staff() to authenticated;
 grant execute on function public.list_staff() to authenticated;
 grant execute on function public.add_staff(text) to authenticated;
 grant execute on function public.remove_staff(text) to authenticated;
+grant execute on function public.register_customer(text, text) to anon, authenticated;
+grant execute on function public.list_customers() to authenticated;
 
 do $$ begin
   alter publication supabase_realtime add table public.orders;
@@ -952,7 +1037,11 @@ const demoDB = {
     if (!lines.length) throw new Error('empty order');
     const o = { id: uid(), order_no: s.seq++, session_id: session, table_no: table, customer_name: name, customer_phone: phone,
       items: lines, total, note: (note || '').slice(0, 300) || null, status: 'new', created_at: new Date().toISOString() };
-    s.orders.push(o); dSave(s); return o;
+    s.orders.push(o);
+      s.customers = s.customers || {};
+      const cu = s.customers[phone]; const now = new Date().toISOString();
+      if (cu) { cu.name = name; cu.last_seen = now; } else s.customers[phone] = { phone, name, first_seen: now, last_seen: now, visits: 1, notes: '' };
+      dSave(s); return o;
   },
   async getBill(session) { return dLoad().orders.filter(o => o.session_id === session).sort((a, b) => a.created_at.localeCompare(b.created_at)); },
   async listOrders() {
@@ -970,6 +1059,22 @@ const demoDB = {
   },
   async deleteMenuItem(id) { const s = dLoad(); s.menu = s.menu.filter(m => m.id !== id); dSave(s); },
   async resetMenu() { const s = dLoad(); s.menu = [...s.menu.filter(m => m.kind === 'offer'), ...seedMenu()]; dSave(s); },
+  async registerCustomer(name, phone) {
+    const s = dLoad(); s.customers = s.customers || {};
+    const c = s.customers[phone], now = new Date().toISOString();
+    if (!c) s.customers[phone] = { phone, name, first_seen: now, last_seen: now, visits: 1, notes: '' };
+    else { if (Date.now() - new Date(c.last_seen) > 2 * 3600e3) c.visits++; c.name = name; c.last_seen = now; }
+    dSave(s);
+  },
+  async listCustomers() {
+    const s = dLoad();
+    return Object.values(s.customers || {}).map(c => {
+      const os = s.orders.filter(o => o.customer_phone === c.phone), paid = os.filter(o => o.status === 'paid');
+      return { ...c, orders_count: paid.length, total_spent: paid.reduce((a, o) => a + Number(o.total), 0), last_order: os.length ? os[os.length - 1].created_at : null };
+    });
+  },
+  async customerOrders(phone) { return dLoad().orders.filter(o => o.customer_phone === phone).sort((a, b) => b.created_at.localeCompare(a.created_at)); },
+  async saveCustomerNote(phone, notes) { const s = dLoad(); if (s.customers && s.customers[phone]) { s.customers[phone].notes = notes; dSave(s); } },
   onChange(cb) { window.addEventListener('storage', e => { if (e.key === LS_DATA) cb(); }); },
   async getUser() { return { demo: true }; },
   async signIn() {}, async signUp() {}, async signOut() {},
@@ -1039,6 +1144,12 @@ function cloudDB(conn) {
       chk(await sb.rpc('add_staff', { p_email: userToEmail(username) }));
     },
     async removeStaff(email) { chk(await sb.rpc('remove_staff', { p_email: email })); },
+    async registerCustomer(name, phone) { chk(await sb.rpc('register_customer', { p_name: name, p_phone: phone })); },
+    async listCustomers() {
+      return (chk(await sb.rpc('list_customers')) || []).map(c => ({ ...c, visits: Number(c.visits), orders_count: Number(c.orders_count), total_spent: Number(c.total_spent) }));
+    },
+    async customerOrders(phone) { return chk(await sb.from('orders').select('*').eq('customer_phone', phone).order('created_at', { ascending: false }).limit(200)); },
+    async saveCustomerNote(phone, notes) { chk(await sb.from('customers').update({ notes: notes || null }).eq('phone', phone)); },
     async currentEmail() { const { data } = await sb.auth.getSession(); return data.session && data.session.user.email; },
   };
 }
@@ -1078,11 +1189,12 @@ function customerApp() {
 
   $('#regForm').addEventListener('submit', e => {
     e.preventDefault();
-    const name = $('#name').value.trim(), phone = toEn($('#phone').value).replace(/[^\d+]/g, '');
+    const name = $('#name').value.trim(), phone = normPhone($('#phone').value);
     if (name.length < 2) return ($('#regErr').textContent = 'اكتب اسمك من فضلك');
     if (!/^\+?\d{8,15}$/.test(phone)) return ($('#regErr').textContent = 'رقم الموبايل مش صحيح');
     $('#regErr').textContent = '';
     writeLS('tt_customer', { name, phone });
+    DB.registerCustomer(name, phone).catch(e => console.warn('register', e));
     newSession(name, phone); openMenu();
   });
 
@@ -1206,7 +1318,7 @@ function customerApp() {
   }
   $('#billBody').onclick = e => {
     if (e.target.id === 'toMenu') openMenu();
-    if (e.target.id === 'newVisit') { newSession(session.name, session.phone); $('#billBody').innerHTML = ''; openMenu(); }
+    if (e.target.id === 'newVisit') { newSession(session.name, session.phone); DB.registerCustomer(session.name, session.phone).catch(() => {}); $('#billBody').innerHTML = ''; openMenu(); }
   };
   $('#goMenu').onclick = openMenu;
   $('#goBill').onclick = openBill;
@@ -1364,7 +1476,7 @@ function cashierApp() {
       orders.forEach(o => seen.add(o.id));
       if (!firstLoad && fresh.length) notify(fresh);
       firstLoad = false; $('#connErr').hidden = true;
-      renderOrders(); renderBills();
+      renderOrders(); renderBills(); loadCustomers();
     } catch (e) { console.error(e); $('#connErr').hidden = false; }
     finally { loading = false; if (again) { again = false; loadOrders(); } }
   }
@@ -1377,7 +1489,7 @@ function cashierApp() {
     }[o.status] || '';
     return `<div class="card ocard ${flash.has(o.id) ? 'flash' : ''}" data-id="${esc(o.id)}">
       <div class="order-head"><b>ترابيزة ${o.table_no}</b><span class="muted sm">#${o.order_no} · ${ago(o.created_at)}</span></div>
-      <div class="cust">${esc(o.customer_name)} · <a href="tel:${esc(o.customer_phone)}" dir="ltr">${esc(o.customer_phone)}</a></div>
+      <div class="cust">${esc(o.customer_name)} · <a href="tel:${esc(o.customer_phone)}" dir="ltr">${esc(o.customer_phone)}</a> ${visitBadge(o.customer_phone)}</div>
       <ul class="items">${o.items.map(i => `<li><b>${i.qty}×</b> ${esc(i.name)}</li>`).join('')}</ul>
       ${o.note ? `<p class="note">📝 ${esc(o.note)}</p>` : ''}
       <div class="order-foot"><b>${money(o.total)}</b><div class="acts">${acts}</div></div></div>`;
@@ -1541,6 +1653,94 @@ function cashierApp() {
     try { await DB.resetMenu(); loadMenu(); toast('اترجّع المنيو الأساسي ✓'); } catch (err) { alert('مقدرناش: ' + err.message); }
   };
 
+  /* ----- العملاء ----- */
+  let customers = [], custMap = new Map(), custLoading = false;
+  function visitBadge(phone) {
+    const c = custMap.get(phone); if (!c) return '';
+    return c.visits > 1 ? `<span class="badge s-served">🔁 زيارة ${c.visits}</span>` : '<span class="badge s-prep">🆕 عميل جديد</span>';
+  }
+  const startToday = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
+  function when(t) {
+    if (!t) return '—';
+    const d = new Date(t), t0 = startToday(), days = Math.floor((t0 - new Date(d.getFullYear(), d.getMonth(), d.getDate())) / 864e5);
+    const hm = d.toLocaleTimeString('ar-EG', { hour: 'numeric', minute: '2-digit' });
+    return days <= 0 ? 'النهارده ' + hm : days === 1 ? 'امبارح ' + hm : days < 30 ? `من ${days} يوم` : d.toLocaleDateString('ar-EG');
+  }
+  async function loadCustomers() {
+    if (custLoading) return; custLoading = true;
+    try {
+      customers = await DB.listCustomers();
+      custMap = new Map(customers.map(c => [c.phone, c]));
+      renderCustomers(); renderOrders();
+    } catch (e) { console.error(e); $('#custBody').innerHTML = `<tr><td colspan="6" class="err">${esc(dbErr(e))}</td></tr>`; }
+    finally { custLoading = false; }
+  }
+  function filteredCustomers() {
+    const q = toEn($('#custSearch').value.trim()).toLowerCase(), sort = $('#custSort').value;
+    const key = { last: c => -new Date(c.last_seen), visits: c => -c.visits, spent: c => -c.total_spent, new: c => -new Date(c.first_seen) }[sort];
+    return customers.filter(c => !q || c.name.toLowerCase().includes(q) || c.phone.includes(q)).sort((a, b) => key(a) - key(b));
+  }
+  function renderCustomers() {
+    const t0 = startToday(), newToday = customers.filter(c => new Date(c.first_seen) >= t0).length;
+    $('#cntCust').textContent = newToday || '';
+    $('#custStats').innerHTML = `
+      <div class="stat"><small>كل العملاء</small><b>${customers.length}</b></div>
+      <div class="stat"><small>عملاء جداد النهارده</small><b>${newToday}</b></div>
+      <div class="stat"><small>زاروا النهارده</small><b>${customers.filter(c => new Date(c.last_seen) >= t0).length}</b></div>
+      <div class="stat"><small>عملاء رجعوا تاني</small><b>${customers.filter(c => c.visits > 1).length}</b></div>`;
+    const list = filteredCustomers();
+    $('#custBody').innerHTML = list.map(c => `<tr data-p="${esc(c.phone)}">
+        <td><b>${esc(c.name)}</b> ${c.notes ? '📝' : ''} ${c.visits > 1 ? '' : '<span class="badge s-prep">جديد</span>'}</td>
+        <td dir="ltr"><a href="tel:${esc(c.phone)}">${esc(c.phone)}</a><a class="wa" href="${waLink(c.phone)}" target="_blank" rel="noopener">WhatsApp</a></td>
+        <td>${c.visits}</td><td>${c.orders_count}</td><td>${money(c.total_spent)}</td><td>${when(c.last_seen)}</td></tr>`).join('')
+      || `<tr><td colspan="6" class="muted center">${customers.length ? 'مفيش نتايج للبحث ده' : 'لسه مفيش عملاء — أول ما حد يسجّل اسمه ورقمه من الـQR هيظهر هنا'}</td></tr>`;
+  }
+  $('#custSearch').oninput = renderCustomers;
+  $('#custSort').onchange = renderCustomers;
+  $('#custBody').onclick = e => { if (e.target.closest('a')) return; const r = e.target.closest('tr[data-p]'); if (r) openCustomer(r.dataset.p); };
+  async function openCustomer(phone) {
+    const c = custMap.get(phone); if (!c) return;
+    const head = `<div class="sheet-head"><h3>${esc(c.name)}</h3><button class="icon" data-close aria-label="إغلاق">✕</button></div>
+      <div class="cust" dir="ltr" style="text-align:right"><a href="tel:${esc(c.phone)}">${esc(c.phone)}</a><a class="wa" href="${waLink(c.phone)}" target="_blank" rel="noopener">WhatsApp</a></div>`;
+    $('#custDetail').innerHTML = head + '<p class="muted">بنحمّل الطلبات…</p>';
+    $('#custModal').hidden = false;
+    let os = [];
+    try { os = await DB.customerOrders(phone); } catch (e) { console.error(e); }
+    const valid = os.filter(o => o.status !== 'cancelled'), paid = os.filter(o => o.status === 'paid');
+    const spent = paid.reduce((a, o) => a + Number(o.total), 0);
+    const top = mergeItems(valid).sort((a, b) => b.qty - a.qty).slice(0, 3);
+    const ST = { new: ['جديد', 's-new'], preparing: ['بيتحضّر', 's-prep'], served: ['اتقدّم', 's-served'], paid: ['اتدفع', 's-paid'], cancelled: ['اتلغى', 's-cancel'] };
+    $('#custDetail').innerHTML = head + `
+      <div class="mini-stats">
+        <div><small>أول زيارة</small><b>${new Date(c.first_seen).toLocaleDateString('ar-EG')}</b></div>
+        <div><small>آخر زيارة</small><b>${when(c.last_seen)}</b></div>
+        <div><small>الزيارات</small><b>${c.visits}</b></div>
+        <div><small>طلبات مدفوعة</small><b>${paid.length}</b></div>
+        <div><small>المشتريات</small><b>${money(spent)}</b></div>
+        <div><small>متوسط الطلب</small><b>${paid.length ? money(spent / paid.length) : '—'}</b></div>
+      </div>
+      ${top.length ? `<p><b>بيحب:</b> ${top.map(i => `${esc(i.name)} (${i.qty})`).join('، ')}</p>` : ''}
+      <label>ملاحظات عن العميل<textarea id="custNote" rows="2" maxlength="500" placeholder="مثلاً: بيحب القهوة سادة، عيد ميلاده في مارس…">${esc(c.notes || '')}</textarea></label>
+      <div class="acts"><button class="btn primary sm" id="saveNote">حفظ الملاحظات</button></div>
+      <h3 style="margin-top:14px">سجل الطلبات (${os.length})</h3>
+      ${os.map(o => `<div class="hist"><div class="order-head"><span>${new Date(o.created_at).toLocaleString('ar-EG', { dateStyle: 'medium', timeStyle: 'short' })} · ترابيزة ${o.table_no}</span><span class="badge ${ST[o.status][1]}">${ST[o.status][0]}</span></div>
+        <div>${o.items.map(i => `${i.qty}× ${esc(i.name)}`).join('، ')}</div><b>${money(o.total)}</b></div>`).join('') || '<p class="muted">لسه مطلبش حاجة.</p>'}`;
+    $('#saveNote').onclick = async () => {
+      try { await DB.saveCustomerNote(phone, $('#custNote').value.trim()); toast('اتحفظت ✓'); loadCustomers(); } catch (err) { alert(dbErr(err)); }
+    };
+  }
+  $('#custModal').onclick = e => { if (e.target.id === 'custModal' || e.target.closest('[data-close]')) $('#custModal').hidden = true; };
+  $('#custExport').onclick = () => {
+    const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+    const rows = [['الاسم', 'الموبايل', 'أول زيارة', 'آخر زيارة', 'الزيارات', 'طلبات مدفوعة', 'المشتريات', 'ملاحظات']]
+      .concat(filteredCustomers().map(c => [c.name, '="' + c.phone + '"', new Date(c.first_seen).toLocaleString('en-GB'), new Date(c.last_seen).toLocaleString('en-GB'), c.visits, c.orders_count, c.total_spent, c.notes || '']));
+    const csv = '﻿' + rows.map(r => r.map((v, i) => i === 1 && String(v).startsWith('=') ? v : q(v)).join(',')).join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'tea-time-customers-' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+
   /* ----- QR ----- */
   function initQR() {
     $('#qrBase').value = siteBase();
@@ -1637,6 +1837,7 @@ function cashierApp() {
   $$('.tabs button').forEach(b => b.onclick = () => {
     $$('.tabs button').forEach(x => x.classList.toggle('on', x === b));
     $$('.tab').forEach(t => t.hidden = t.id !== 'tab-' + b.dataset.tab);
+    if (b.dataset.tab === 'customers') loadCustomers();
   });
 
   (async function boot() {
