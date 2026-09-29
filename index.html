@@ -245,9 +245,9 @@ body.cashier main{max-width:1400px}
       <h2>دخول الكاشير</h2>
       <div class="auth-tabs"><button data-auth="in" class="on">دخول</button><button data-auth="up">أول مرة؟ اعمل الحساب</button></div>
       <form id="loginForm">
-        <label>الإيميل أو اسم المستخدم<input id="lgUser" dir="ltr" autocomplete="username" required placeholder="you@gmail.com"></label>
+        <label>اسم المستخدم<input id="lgUser" dir="ltr" autocomplete="username" autocapitalize="none" required placeholder="مثلاً: admin"></label>
         <label>الباسورد<input id="lgPw" type="password" dir="ltr" autocomplete="current-password" required minlength="6"></label>
-        <p class="muted sm" id="upHint" hidden>يفضّل تكتب إيميلك الحقيقي. أول حساب يتعمل بيبقى هو صاحب الكافيه، وبعد كده الحسابات الجديدة بتتضاف من الإعدادات بس.</p>
+        <p class="muted sm" id="upHint" hidden>اسم المستخدم بالإنجليزي والأرقام بس. أول حساب يتعمل بيبقى هو صاحب الكافيه، وبعد كده الحسابات الجديدة بتتضاف من الإعدادات بس.</p>
         <p class="err" id="loginErr"></p>
         <button class="btn primary block" id="loginBtn">دخول</button>
       </form>
@@ -365,7 +365,7 @@ body.cashier main{max-width:1400px}
           <h3>حسابات الكاشير</h3>
           <div id="staffList"></div>
           <form id="staffForm" class="form-grid" style="align-items:end">
-            <label>إيميل أو اسم مستخدم<input id="stUser" dir="ltr" required></label>
+            <label>اسم مستخدم جديد<input id="stUser" dir="ltr" autocapitalize="none" required></label>
             <label>باسورد (6 حروف على الأقل)<input id="stPw" type="password" dir="ltr" minlength="6" required></label>
             <div><button class="btn primary block" style="margin:10px 0">إضافة كاشير</button></div>
           </form>
@@ -397,7 +397,7 @@ const writeLS = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } 
 const ACTIVE = ['new', 'preparing', 'served'];
 const EMAIL_DOMAIN = '@teatime-local.app';
 const userToEmail = u => { u = (u || '').trim().toLowerCase(); return u.includes('@') ? u : u.replace(/[^a-z0-9_.-]/g, '') + EMAIL_DOMAIN; };
-const validLogin = u => /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(u) || /^[a-zA-Z0-9_.-]{3,}$/.test(u);
+const validLogin = u => /^[a-zA-Z0-9_.-]{3,}$/.test(u);
 const emailToUser = e => String(e || '').replace(EMAIL_DOMAIN, '');
 const cleanUrl = u => (u || '').trim().replace(/\/rest\/v1\/?.*$/i, '').replace(/\/+$/, '');
 let toastT;
@@ -1278,7 +1278,7 @@ function cashierApp() {
   $('#loginForm').onsubmit = async e => {
     e.preventDefault(); $('#loginErr').textContent = '';
     const u = $('#lgUser').value.trim(), p = $('#lgPw').value, btn = $('#loginBtn');
-    if (!validLogin(u)) return ($('#loginErr').textContent = 'اكتب إيميل صحيح، أو اسم مستخدم بالإنجليزي والأرقام (3 حروف على الأقل)');
+    if (!validLogin(u)) return ($('#loginErr').textContent = 'اسم المستخدم بالإنجليزي والأرقام بس (3 حروف على الأقل)');
     btn.disabled = true;
     try { authMode === 'up' ? await DB.signUp(u, p) : await DB.signIn(u, p); start(); }
     catch (err) {
@@ -1295,14 +1295,14 @@ function cashierApp() {
     if (m === 'confirm email') return 'الحساب اتعمل بس Supabase مستني تأكيد الإيميل. اقفل Confirm email من Authentication ← Sign In / Providers ← Email.' + unconfirmedTip;
     if (/not confirmed/i.test(m) || code === 'email_not_confirmed') return 'Supabase مستني تأكيد الإيميل. اقفل Confirm email من Authentication ← Sign In / Providers ← Email.' + unconfirmedTip;
     if (m.startsWith('sql missing') || /schema cache|could not find the function/i.test(m)) return 'قاعدة البيانات لسه متجهزتش — شغّل كود SQL في Supabase ← SQL Editor الأول، وبعدين جرّب تاني.';
-    if (code === 'email_address_invalid' || (/email/i.test(m) && /invalid/i.test(m))) return 'Supabase رافض اسم المستخدم ده — اكتب إيميلك الحقيقي بداله.';
+    if (code === 'email_address_invalid' || (/email/i.test(m) && /invalid/i.test(m))) return 'Supabase رافض اسم المستخدم ده — جرّب اسم تاني بالإنجليزي من غير مسافات.';
     if (code === 'user_already_exists' || /already registered|already exists/i.test(m)) return 'الحساب ده موجود — ادخل من تاب "دخول".';
     if (code === 'signup_disabled' || /signups? not allowed|signups? .*disabled/i.test(m)) return 'التسجيل مقفول في Supabase — افتح "Allow new users to sign up" من Authentication مؤقتاً.';
     if (/rate limit|too many/i.test(m)) return 'محاولات كتير — استنى دقيقة وجرّب تاني.';
     if (/failed to fetch|network/i.test(m)) return 'مفيش اتصال بـ Supabase — اتأكد من النت.';
     if (mode === 'up' && /password/i.test(m)) return 'الباسورد لازم 6 حروف على الأقل.';
     if (code === 'invalid_credentials' || /invalid login credentials/i.test(m))
-      return 'مفيش حساب بالبيانات دي، أو الباسورد غلط. لو دي أول مرة، اعمل الحساب من تاب "أول مرة؟ اعمل الحساب".';
+      return 'اسم المستخدم أو الباسورد غلط. لو دي أول مرة، اعمل الحساب من تاب "أول مرة؟ اعمل الحساب".';
     return 'حصلت مشكلة في الدخول.';
   }
 
@@ -1627,7 +1627,7 @@ function cashierApp() {
   $('#staffForm').onsubmit = async e => {
     e.preventDefault(); $('#staffErr').textContent = '';
     const u = $('#stUser').value.trim(), p = $('#stPw').value;
-    if (!validLogin(u)) return ($('#staffErr').textContent = 'اكتب إيميل أو اسم مستخدم بالإنجليزي والأرقام');
+    if (!validLogin(u)) return ($('#staffErr').textContent = 'اسم المستخدم بالإنجليزي والأرقام بس');
     if (p.length < 6) return ($('#staffErr').textContent = 'الباسورد 6 حروف على الأقل');
     try { await DB.addStaff(u, p); $('#staffForm').reset(); toast('اتضاف ✓ — يدخل باسم المستخدم والباسورد دول'); loadStaff(); }
     catch (err) { $('#staffErr').textContent = 'مقدرناش نضيفه: ' + err.message; }
