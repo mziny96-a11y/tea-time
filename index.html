@@ -48,11 +48,34 @@ input:focus,textarea:focus,select:focus{outline:2px solid var(--accent-2);border
 .info-box{background:#fdf6ec;border:1px solid #f0dcc2;border-radius:10px;padding:10px 12px;font-size:14px;margin:10px 0}
 .warn-box{background:#fff1d6;border:1px solid #f2d28c;border-radius:10px;padding:10px 12px;font-size:14px;margin:10px 0;color:#6b4700}
 /* customer */
-.cats{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;position:sticky;top:58px;background:var(--bg);z-index:5;scrollbar-width:none}
-.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 14px;white-space:nowrap;cursor:pointer;font-weight:600}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:8px 0 6px;scrollbar-width:none;scroll-behavior:smooth}.cats::-webkit-scrollbar{display:none}
+.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:7px 14px;white-space:nowrap;cursor:pointer;font-weight:700;font-size:14px}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .cat-title{margin:14px 2px 8px;font-size:18px}
-.item{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:var(--shadow)}
+.item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border-radius:var(--r);padding:10px 12px;margin-bottom:8px;box-shadow:var(--shadow)}
+.item-main{display:flex;gap:12px;align-items:center;flex:1;min-width:0}
+.ico{width:48px;height:48px;border-radius:14px;background:#fff4e6;display:grid;place-items:center;font-size:25px;flex:0 0 48px}
+.sugar-hint{display:block;font-size:12px;color:var(--accent);font-weight:700}
+.menu-top{position:sticky;top:var(--topH,70px);z-index:6;background:var(--bg);margin:-16px -16px 6px;padding:10px 16px 0;box-shadow:0 6px 10px -8px rgba(0,0,0,.15)}
+.search{position:relative}
+.search input{margin:0;border-radius:99px;padding:11px 44px 11px 16px;background:#fff;border:1.5px solid var(--line)}
+.search .s-ico{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.6;pointer-events:none}
+.search button{position:absolute;left:8px;top:50%;transform:translateY(-50%);border:0;background:#eee;border-radius:50%;width:28px;height:28px;cursor:pointer}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 6px}
+.cat-tile{background:#fff;border:0;border-radius:14px;padding:12px 4px 10px;box-shadow:var(--shadow);text-align:center;cursor:pointer;font-weight:800;font-size:13px;line-height:1.3}
+.cat-tile .e{font-size:30px;display:block;margin-bottom:4px}.cat-tile small{display:block;color:var(--muted);font-weight:600;font-size:11px}
+.cat-sec{scroll-margin-top:calc(var(--topH,70px) + 108px)}
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 4px}
+.opt-btn{border:2px solid var(--line);background:#fff;border-radius:16px;padding:14px 8px;font-weight:800;font-size:18px;cursor:pointer;color:var(--ink)}
+.opt-btn .cubes{display:flex;justify-content:center;gap:4px;min-height:18px;margin-bottom:4px}
+.opt-btn .cubes i{width:13px;height:13px;border-radius:3px;background:#fff;border:2px solid var(--accent-2);display:block}
+.opt-btn .cubes em{color:var(--muted);font-style:normal;line-height:14px}
+.opt-btn small{display:block;color:var(--muted);font-weight:600;font-size:12px;margin-top:2px}
+.opt-btn:active,.opt-btn:hover{border-color:var(--accent-2);background:#fff4e6}
+.opt-lbl{display:inline-block;background:#fff1c9;color:#7a5200;border-radius:99px;padding:0 8px;font-size:12px;font-weight:800;margin-inline-start:4px}
+.hello{background:#fff;border-radius:12px;padding:8px 12px;margin:0 0 8px;font-size:14px;box-shadow:var(--shadow)}
+.hello a{font-weight:700}
+.no-res{text-align:center;padding:30px 10px;color:var(--muted)}
 .item-info b{display:block}.item-info small{display:block;color:var(--muted);font-size:13px}
 .price{color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap}
 .btn.add{background:#f3e8dc;color:var(--accent);white-space:nowrap}
@@ -114,6 +137,7 @@ body.cashier main{max-width:1400px}
 .switch span:before{content:"";position:absolute;width:18px;height:18px;top:3px;right:3px;background:#fff;border-radius:50%;transition:.2s}
 .switch input:checked+span{background:var(--ok)}.switch input:checked+span:before{transform:translateX(-20px)}
 .chk{display:flex;align-items:center;gap:6px;margin:0;font-size:14px;color:#fff}.chk input{width:auto;margin:0}
+.voice-sel{width:auto;display:inline-block;margin:0;padding:6px 10px;font-size:14px;background:#222;color:#fff;border-color:#444}
 .qr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
 .qr-card{background:#fff;border:2px dashed var(--line);border-radius:var(--r);padding:16px;text-align:center;break-inside:avoid;page-break-inside:avoid}
 .qr-card .qr-code{display:flex;justify-content:center;margin:10px 0}
@@ -126,12 +150,24 @@ body.cashier main{max-width:1400px}
 .auth-tabs{display:flex;gap:6px;margin:10px 0;background:#f3e8dc;padding:4px;border-radius:10px}
 .auth-tabs button{flex:1;border:0;background:transparent;padding:8px;border-radius:8px;font-weight:700;cursor:pointer;color:var(--muted)}
 .auth-tabs button.on{background:#fff;color:var(--ink);box-shadow:var(--shadow)}
-.staff-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.staff-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.staff-row select{width:auto;margin:0;padding:6px 10px;font-size:14px}
+.role-tag{background:rgba(255,255,255,.18);border-radius:99px;padding:0 8px;margin-inline-start:4px}
+.rep-periods{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.rep-sort{width:auto;margin:0;padding:7px 10px;font-size:14px}
+.bar-row{display:grid;grid-template-columns:minmax(90px,1.2fr) 3fr auto;gap:8px;align-items:center;padding:5px 0;font-size:14px}
+.bar-track{background:#f3ece4;border-radius:6px;height:14px;overflow:hidden}.bar-fill{background:var(--accent-2);height:100%;border-radius:6px}
+.bar-row b{white-space:nowrap}
+.ctable td.num{font-variant-numeric:tabular-nums}
+.pct{display:inline-block;min-width:44px}
+.print-only{display:none}
+@media print{.print-only{display:block}.tabs,.topbar,#repPeriods{display:none!important}}
 .promo{background:#141414;color:#fff;border-inline-start:6px solid var(--accent-2);border-radius:var(--r);padding:12px 14px;margin:4px 0 12px;font-weight:700;display:flex;gap:10px;align-items:center;box-shadow:var(--shadow)}
 .promo .big{font-size:24px;line-height:1}
 .sec-title{margin:16px 2px 8px;font-size:18px}
 .hscroll{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x mandatory;scrollbar-width:none}
-.hscroll .item{flex:0 0 205px;flex-direction:column;align-items:stretch;justify-content:space-between;scroll-snap-align:start;margin:0}
+.hscroll .item{flex:0 0 215px;flex-direction:column;align-items:stretch;justify-content:space-between;scroll-snap-align:start;margin:0;gap:10px}
+.hscroll .item-main{align-items:flex-start}
 .hscroll .item>.btn,.hscroll .item>.qty{align-self:flex-start}
 .item.offer{background:linear-gradient(180deg,#fff4e6,#fff);border:1px solid #f0d7b5}
 .old{color:var(--muted);text-decoration:line-through;font-size:13px;font-weight:600;margin-inline-start:6px}
@@ -158,6 +194,15 @@ body.cashier main{max-width:1400px}
 <body>
 <div id="root"></div>
 <div class="toast" id="toast"></div>
+<template id="tpl-opt">
+  <div class="sheet-bg" id="optSheet" hidden>
+    <div class="sheet">
+      <div class="sheet-head"><h3 id="optTitle"></h3><button class="icon" id="optClose" aria-label="إغلاق">✕</button></div>
+      <p class="muted" style="margin:0">تحب السكر إيه؟</p>
+      <div class="opt-grid" id="optGrid"></div>
+    </div>
+  </div>
+</template>
 
 <!-- ======================= صفحة الزبون ======================= -->
 <template id="tpl-customer">
@@ -188,7 +233,10 @@ body.cashier main{max-width:1400px}
       </div>
     </section>
     <section id="scr-menu" class="screen" hidden>
-      <div class="cats" id="cats"></div>
+      <div class="menu-top">
+        <div class="search"><span class="s-ico">🔍</span><input id="q" type="search" placeholder="دوّر على مشروب… (مثلاً: مانجو)" autocomplete="off" enterkeyhint="search"><button id="qClear" type="button" aria-label="مسح" hidden>✕</button></div>
+        <div class="cats" id="cats"></div>
+      </div>
       <div id="menuList"></div>
       <div class="spacer"></div>
     </section>
@@ -213,9 +261,12 @@ body.cashier main{max-width:1400px}
 <!-- ======================= شاشة الكاشير ======================= -->
 <template id="tpl-cashier">
   <header class="topbar no-print">
-    <div class="brand"><img class="logo" data-logo="badge" alt=""><div><b class="cafeName"></b><small>شاشة الكاشير</small></div></div>
+    <div class="brand"><img class="logo" data-logo="badge" alt=""><div><b class="cafeName"></b><small>شاشة الكاشير <span id="roleLbl"></span></small></div></div>
     <div class="top-actions" id="cashTop" hidden>
-      <label class="chk"><input type="checkbox" id="speakChk" checked> اقرا الطلب بالصوت</label>
+      <select id="voiceStyle" class="voice-sel" title="صوت الطلب">
+        <option value="normal">🗣️ اقرا الطلب بالصوت</option>
+        <option value="bell">🔔 جرس بس</option>
+      </select>
       <button class="btn warn sm" id="soundBtn">🔔 فعّل الصوت</button>
       <button class="btn ghost sm" id="logoutBtn" hidden>خروج</button>
     </div>
@@ -253,11 +304,9 @@ body.cashier main{max-width:1400px}
     <div class="card narrow">
       <img class="hero-logo" data-logo="full" alt="Tea Time">
       <h2>دخول الكاشير</h2>
-      <div class="auth-tabs"><button data-auth="in" class="on">دخول</button><button data-auth="up">أول مرة؟ اعمل الحساب</button></div>
       <form id="loginForm">
         <label>اسم المستخدم<input id="lgUser" dir="ltr" autocomplete="username" autocapitalize="none" required placeholder="مثلاً: admin"></label>
         <label>الباسورد<input id="lgPw" type="password" dir="ltr" autocomplete="current-password" required minlength="6"></label>
-        <p class="muted sm" id="upHint" hidden>اسم المستخدم بالإنجليزي والأرقام بس. أول حساب يتعمل بيبقى هو صاحب الكافيه، وبعد كده الحسابات الجديدة بتتضاف من الإعدادات بس.</p>
         <p class="err" id="loginErr"></p>
         <button class="btn primary block" id="loginBtn">دخول</button>
       </form>
@@ -271,6 +320,7 @@ body.cashier main{max-width:1400px}
       <button data-tab="bills">الحسابات <span class="count" id="cntBills"></span></button>
       <button data-tab="menu">المنيو والأسعار</button>
       <button data-tab="customers">العملاء <span class="count" id="cntCust"></span></button>
+      <button data-tab="reports">📊 التقارير</button>
       <button data-tab="qr">أكواد QR</button>
       <button data-tab="settings">الإعدادات</button>
     </nav>
@@ -313,6 +363,7 @@ body.cashier main{max-width:1400px}
             <label>سعر بعد الخصم (اختياري)<input id="mOffer" type="number" min="0" step="0.5" dir="ltr" placeholder="فاضي = مفيش خصم"></label>
           </div>
           <label class="chk-inline"><input type="checkbox" id="mFeat"> ⭐ يظهر في "الأكثر مبيعاً"</label>
+          <label class="chk-inline"><input type="checkbox" id="mSugar"> ☕ الزبون يختار السكر (زيادة / مظبوط / على الريحة / سادة)</label>
           <datalist id="catList"></datalist>
           <div class="acts"><button class="btn primary" type="submit">حفظ</button><button type="button" class="btn ghost" id="mCancel" hidden>إلغاء التعديل</button></div>
         </form>
@@ -337,6 +388,36 @@ body.cashier main{max-width:1400px}
         </div>
       </div>
       <div class="sheet-bg" id="custModal" hidden><div class="sheet" id="custDetail"></div></div>
+
+      <div class="tab" id="tab-reports" hidden>
+        <div class="card no-print">
+          <div class="rep-periods" id="repPeriods">
+            <button class="chip on" data-p="today">النهارده</button><button class="chip" data-p="yesterday">امبارح</button>
+            <button class="chip" data-p="week">آخر 7 أيام</button><button class="chip" data-p="month">الشهر ده</button>
+            <button class="chip" data-p="lastmonth">الشهر اللي فات</button>
+          </div>
+          <div class="form-grid" style="align-items:end">
+            <label>من يوم<input id="repFrom" type="date"></label>
+            <label>لحد يوم<input id="repTo" type="date"></label>
+            <div class="acts" style="margin:10px 0"><button class="btn primary" id="repGo" type="button">اعرض</button>
+              <button class="btn ghost" id="repCsv" type="button">⬇️ Excel</button><button class="btn ghost" id="repPrint" type="button">🖨️ طباعة</button></div>
+          </div>
+        </div>
+        <h2 class="print-only" id="repTitle"></h2>
+        <div class="stats" id="repStats"></div>
+        <div class="grid">
+          <div class="card"><h3>📅 المبيعات بالأيام</h3><div id="repDaily"></div></div>
+          <div class="card"><h3>📂 المبيعات بالأقسام</h3><div id="repCats"></div></div>
+        </div>
+        <div class="card">
+          <div class="order-head"><h3>☕ مبيعات الأصناف</h3>
+            <div class="acts no-print"><input id="repSearch" placeholder="بحث عن صنف" style="margin:0;width:170px;padding:7px 10px">
+              <select id="repSort" class="rep-sort"><option value="revenue">الأعلى مبيعاً (فلوس)</option><option value="qty">الأكتر كمية</option><option value="low">الأقل مبيعاً</option></select></div></div>
+          <div style="overflow-x:auto"><table class="ctable"><thead><tr><th>#</th><th>الصنف</th><th>القسم</th><th>الكمية</th><th>المبيعات</th><th>من الإجمالي</th></tr></thead><tbody id="repItems"></tbody></table></div>
+          <p class="muted sm">* الطلبات المدفوعة بس، بسعر الصنف وقت الطلب (قبل خصم الحساب والخدمة).</p>
+          <div id="repZero"></div>
+        </div>
+      </div>
 
       <div class="tab" id="tab-qr" hidden>
         <div class="card no-print">
@@ -386,18 +467,31 @@ body.cashier main{max-width:1400px}
         </div>
 
         <div class="card">
+          <h3>🗣️ صوت الطلبات</h3>
+          <p class="muted sm">الصوت بيطلع من المتصفح نفسه، فلازم الجهاز يكون فيه صوت عربي. أحسن صوت مصري: افتح الكاشير من متصفح <b>Microsoft Edge</b> واختار <b>Salma</b> أو <b>Shakir (Egypt)</b>.</p>
+          <div class="form-grid" style="align-items:end">
+            <label>الصوت<select id="voicePick"></select></label>
+            <label>السرعة<select id="voiceRate"><option value="0.9">هادي</option><option value="1" selected>عادي</option><option value="1.12">سريع</option></select></label>
+            <div><button class="btn primary block" id="voiceTest" type="button" style="margin:10px 0">▶️ جرّب الصوت</button></div>
+          </div>
+          <p class="warn-box" id="voiceWarn" hidden></p>
+        </div>
+        <div class="card">
           <h3>تحديث قاعدة البيانات</h3>
           <p class="muted sm">لما النظام يتحدّث بميزة جديدة (زي العروض والأكثر مبيعاً)، انسخ الكود ده وشغّله تاني في Supabase → SQL Editor. مش بيمسح أي بيانات.</p>
           <button class="btn ghost sm" id="copySql2" type="button">📋 نسخ كود SQL</button>
         </div>
         <div class="card" id="staffCard" hidden>
-          <h3>حسابات الكاشير</h3>
+          <h3>👥 الموظفين والصلاحيات</h3>
+          <p class="muted sm"><b>صاحب المحل:</b> كل حاجة · <b>ويتر:</b> الطلبات والحسابات بس (من غير مبيعات) · <b>بار:</b> شاشة الطلبات بس (يحضّر ويقدّم)</p>
           <div id="staffList"></div>
           <form id="staffForm" class="form-grid" style="align-items:end">
-            <label>اسم مستخدم جديد<input id="stUser" dir="ltr" autocapitalize="none" required></label>
-            <label>باسورد (6 حروف على الأقل)<input id="stPw" type="password" dir="ltr" minlength="6" required></label>
-            <div><button class="btn primary block" style="margin:10px 0">إضافة كاشير</button></div>
+            <label>اسم المستخدم<input id="stUser" dir="ltr" autocapitalize="none" required placeholder="مثلاً: bar1"></label>
+            <label>الباسورد (6 حروف على الأقل)<input id="stPw" type="text" dir="ltr" minlength="6" required autocomplete="off"></label>
+            <label>الصلاحية<select id="stRole"><option value="waiter">ويتر</option><option value="bar">بار</option><option value="owner">صاحب المحل</option></select></label>
+            <div><button class="btn primary block" style="margin:10px 0">إضافة موظف</button></div>
           </form>
+          <p class="muted sm">لو اسم المستخدم موجود، الباسورد والصلاحية هيتغيّروا.</p>
           <p class="err" id="staffErr"></p>
         </div>
       </div>
@@ -433,6 +527,15 @@ function normPhone(p) {
   if (p.startsWith('+20')) p = '0' + p.slice(3); else if (p.startsWith('0020')) p = '0' + p.slice(4); else if (/^20\d{10}$/.test(p)) p = '0' + p.slice(2);
   return p;
 }
+function getDeviceId() {
+  let id = null;
+  try { id = localStorage.getItem('tt_device'); } catch (e) {}
+  if (!id) { const m = document.cookie.match(/(?:^|; )tt_device=([^;]+)/); if (m) id = decodeURIComponent(m[1]); }
+  if (!id || !/^[a-z0-9-]{16,64}$/i.test(id)) id = uid();
+  try { localStorage.setItem('tt_device', id); } catch (e) {}
+  try { document.cookie = 'tt_device=' + id + '; max-age=' + 60 * 60 * 24 * 730 + '; path=/; SameSite=Lax'; } catch (e) {}
+  return id;
+}
 function waLink(p) { let d = String(p).replace(/\D/g, ''); if (/^0\d{10}$/.test(d)) d = '20' + d.slice(1); return 'https://wa.me/' + d; }
 const cleanUrl = u => (u || '').trim().replace(/\/rest\/v1\/?.*$/i, '').replace(/\/+$/, '');
 let toastT;
@@ -443,6 +546,10 @@ function toast(msg, bad) {
 let S = { cafe_name: 'Tea Time', currency: 'ج.م', service_percent: 0, announcement: '', bill_discount: 0, discount_label: '' };
 const money = n => Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' ' + (S.currency || 'ج.م');
 const svcOf = t => Math.round(t * (Number(S.service_percent) || 0)) / 100;
+const SUGAR_OPTS = [['زيادة', 3, 'سكر كتير'], ['مظبوط', 2, 'سكر متوسط'], ['على الريحة', 1, 'سكر خفيف'], ['سادة', 0, 'من غير سكر']];
+const SUGAR_DEFAULT = ['قهوة تركي', 'قهوة فرنساوي', 'قهوة بندق'];
+const iname = i => i.name + (i.opt ? ' — ' + i.opt : '');
+const ihtml = i => esc(i.name) + (i.opt ? ` <span class="opt-lbl">${esc(i.opt)}</span>` : '');
 const hasOffer = m => m.offer_price != null && m.offer_price !== '' && Number(m.offer_price) < Number(m.price);
 const effPrice = m => hasOffer(m) ? Number(m.offer_price) : Number(m.price);
 function billCalc(sub) {
@@ -487,6 +594,11 @@ create table if not exists public.staff (
   email text primary key,
   created_at timestamptz not null default now()
 );
+-- الصلاحيات: owner = صاحب المحل (كل حاجة)، waiter = ويتر (الطلبات والحسابات)، bar = البار (الطلبات بس)
+alter table public.staff add column if not exists role text not null default 'owner';
+do $$ begin
+  alter table public.staff add constraint staff_role_chk check (role in ('owner','waiter','bar'));
+exception when duplicate_object then null; end $$;
 
 create table if not exists public.menu_items (
   id uuid primary key default gen_random_uuid(),
@@ -516,6 +628,12 @@ create table if not exists public.orders (
 -- إضافات: الأكثر مبيعاً، العروض، الخصومات
 alter table public.menu_items add column if not exists featured boolean not null default false;
 alter table public.menu_items add column if not exists offer_price numeric(10,2) check (offer_price >= 0);
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'menu_items' and column_name = 'sugar') then
+    alter table public.menu_items add column sugar boolean not null default false;
+    update public.menu_items set sugar = true where name in ('قهوة تركي','قهوة فرنساوي','قهوة بندق');
+  end if;
+end $$;
 alter table public.menu_items add column if not exists kind text not null default 'item' check (kind in ('item','offer'));
 alter table public.cafe_settings add column if not exists announcement text;
 alter table public.cafe_settings add column if not exists bill_discount numeric(5,2) not null default 0 check (bill_discount between 0 and 100);
@@ -541,18 +659,64 @@ language sql stable security definer set search_path = public as $$
   select exists (select 1 from public.staff where lower(email) = lower(coalesce(auth.jwt() ->> 'email', '')));
 $$;
 
+create or replace function public.my_role() returns text
+language sql stable security definer set search_path = public as $$
+  select role from public.staff where lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''));
+$$;
+create or replace function public.is_owner() returns boolean
+language sql stable security definer set search_path = public as $$
+  select coalesce(public.my_role() = 'owner', false);
+$$;
+
 drop policy if exists "settings read" on public.cafe_settings;
 create policy "settings read" on public.cafe_settings for select using (true);
 drop policy if exists "settings staff" on public.cafe_settings;
-create policy "settings staff" on public.cafe_settings for update to authenticated using (public.is_staff()) with check (public.is_staff());
+create policy "settings staff" on public.cafe_settings for update to authenticated using (public.is_owner()) with check (public.is_owner());
 
 drop policy if exists "menu read" on public.menu_items;
 create policy "menu read" on public.menu_items for select using (true);
 drop policy if exists "menu staff" on public.menu_items;
-create policy "menu staff" on public.menu_items for all to authenticated using (public.is_staff()) with check (public.is_staff());
+create policy "menu staff" on public.menu_items for all to authenticated using (public.is_owner()) with check (public.is_owner());
 
 drop policy if exists "orders staff" on public.orders;
-create policy "orders staff" on public.orders for all to authenticated using (public.is_staff()) with check (public.is_staff());
+-- صاحب المحل بيشوف كل الطلبات؛ الويتر والبار بيشوفوا الطلبات المفتوحة بس (مش المبيعات)
+drop policy if exists "orders read" on public.orders;
+create policy "orders read" on public.orders for select to authenticated
+  using (public.is_owner() or (public.is_staff() and status in ('new','preparing','served')));
+drop policy if exists "orders update" on public.orders;
+create policy "orders update" on public.orders for update to authenticated using (public.is_staff()) with check (public.is_staff());
+drop policy if exists "orders insert" on public.orders;
+create policy "orders insert" on public.orders for insert to authenticated with check (public.is_owner());
+drop policy if exists "orders delete" on public.orders;
+create policy "orders delete" on public.orders for delete to authenticated using (public.is_owner());
+
+-- البار يقدر بس يحضّر ويقدّم، مايقدرش يلغي أو يقفل حساب
+create or replace function public.orders_guard() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  if public.my_role() = 'bar' and new.status not in ('new','preparing','served') then raise exception 'not allowed'; end if;
+  return new;
+end $$;
+drop trigger if exists orders_guard on public.orders;
+create trigger orders_guard before update on public.orders for each row execute function public.orders_guard();
+
+-- تغيير حالة الطلب وقفل الحساب بيعدّوا من هنا (عشان الويتر يقدر يقفل حساب من غير ما يشوف المبيعات)
+create or replace function public.set_order_status(p_id uuid, p_status text) returns void
+language plpgsql security definer set search_path = public as $$
+declare r text := public.my_role();
+begin
+  if r is null then raise exception 'not allowed'; end if;
+  if p_status not in ('new','preparing','served','paid','cancelled') then raise exception 'invalid status'; end if;
+  if r = 'bar' and p_status not in ('new','preparing','served') then raise exception 'not allowed'; end if;
+  update public.orders set status = p_status, updated_at = now() where id = p_id;
+end $$;
+
+create or replace function public.close_session(p_session uuid) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if coalesce(public.my_role(), '') not in ('owner', 'waiter') then raise exception 'not allowed'; end if;
+  update public.orders set status = 'paid', updated_at = now() where session_id = p_session and status in ('new','preparing','served');
+end $$;
 
 -- ===== متابعة العملاء =====
 create table if not exists public.customers (
@@ -566,7 +730,23 @@ create table if not exists public.customers (
 alter table public.customers enable row level security;
 grant select, update, delete on public.customers to authenticated;
 drop policy if exists "customers staff" on public.customers;
-create policy "customers staff" on public.customers for all to authenticated using (public.is_staff()) with check (public.is_staff());
+create policy "customers staff" on public.customers for all to authenticated using (public.is_owner()) with check (public.is_owner());
+
+-- ===== التعرّف على الجهاز والحد من الطلبات الوهمية =====
+alter table public.orders add column if not exists device_id text;
+alter table public.orders add column if not exists other_device boolean not null default false;
+alter table public.customers add column if not exists device_id text;
+create index if not exists orders_device_idx on public.orders(device_id);
+create index if not exists orders_phone_idx on public.orders(customer_phone);
+create table if not exists public.blocked (
+  value text primary key,
+  kind text not null check (kind in ('phone','device')),
+  created_at timestamptz not null default now()
+);
+alter table public.blocked enable row level security;
+grant select, insert, delete on public.blocked to authenticated;
+drop policy if exists "blocked staff" on public.blocked;
+create policy "blocked staff" on public.blocked for all to authenticated using (public.is_owner()) with check (public.is_owner());
 
 -- العملاء اللي طلبوا قبل ما الميزة دي تتضاف
 insert into public.customers (phone, name, first_seen, last_seen, visits)
@@ -575,36 +755,82 @@ from public.orders group by customer_phone
 on conflict (phone) do nothing;
 
 -- بتتنادى لما الزبون يكتب اسمه ورقمه (الزيارة بتتحسب لو آخر مرة كانت من أكتر من ساعتين)
-create or replace function public.register_customer(p_name text, p_phone text) returns void
+drop function if exists public.register_customer(text, text);
+create or replace function public.register_customer(p_name text, p_phone text, p_device text default null) returns void
 language plpgsql security definer set search_path = public as $$
 begin
   if coalesce(length(trim(p_name)), 0) < 2 then raise exception 'invalid name'; end if;
   if coalesce(p_phone, '') !~ '^\+?[0-9]{8,15}$' then raise exception 'invalid phone'; end if;
-  insert into public.customers (phone, name) values (p_phone, left(trim(p_name), 40))
-  on conflict (phone) do update set name = excluded.name, last_seen = now(),
+  if p_device is not null and length(p_device) > 64 then raise exception 'invalid device'; end if;
+  if exists (select 1 from public.blocked where value in (p_phone, coalesce(p_device, '-'))) then raise exception 'blocked'; end if;
+  insert into public.customers (phone, name, device_id) values (p_phone, left(trim(p_name), 40), p_device)
+  on conflict (phone) do update set name = excluded.name, last_seen = now(), device_id = coalesce(excluded.device_id, public.customers.device_id),
     visits = public.customers.visits + case when public.customers.last_seen < now() - interval '2 hours' then 1 else 0 end;
 end $$;
 
+-- لو الزبون فتح الكود تاني (أو من متصفح تاني) على نفس الترابيزة، يرجع لنفس حسابه المفتوح
+create or replace function public.resume_session(p_phone text, p_table int) returns uuid
+language sql stable security definer set search_path = public as $$
+  select session_id from public.orders
+  where customer_phone = p_phone and table_no = p_table and status in ('new','preparing','served')
+    and created_at > now() - interval '12 hours'
+  order by created_at desc limit 1;
+$$;
+
+drop function if exists public.list_customers();
 create or replace function public.list_customers()
 returns table (phone text, name text, first_seen timestamptz, last_seen timestamptz, visits int, notes text,
-               orders_count bigint, total_spent numeric, last_order timestamptz)
+               orders_count bigint, total_spent numeric, last_order timestamptz,
+               cancelled_count bigint, devices_count bigint, blocked boolean)
 language sql stable security definer set search_path = public as $$
   select c.phone, c.name, c.first_seen, c.last_seen, c.visits, c.notes,
          count(o.id) filter (where o.status = 'paid'),
          coalesce(sum(o.total) filter (where o.status = 'paid'), 0),
-         max(o.created_at)
+         max(o.created_at),
+         count(o.id) filter (where o.status = 'cancelled'),
+         count(distinct o.device_id),
+         exists (select 1 from public.blocked b where b.value = c.phone)
   from public.customers c
   left join public.orders o on o.customer_phone = c.phone
-  where public.is_staff()
+  where public.is_owner()
   group by c.phone
   order by c.last_seen desc;
 $$;
 
--- الزبون بيطلب عن طريق الدالة دي بس، والأسعار بتتحسب من المنيو على السيرفر
-create or replace function public.place_order(p_session uuid, p_table int, p_name text, p_phone text, p_items jsonb, p_note text default null)
-returns public.orders language plpgsql security definer set search_path = public as $$
-declare v_items jsonb := '[]'::jsonb; v_total numeric := 0; r record; v_order public.orders;
+-- حظر / فك حظر عميل (بالرقم وكل الأجهزة اللي طلب منها)
+create or replace function public.block_customer(p_phone text, p_on boolean) returns void
+language plpgsql security definer set search_path = public as $$
 begin
+  if coalesce(public.my_role(), '') not in ('owner', 'waiter') then raise exception 'not allowed'; end if;
+  if p_on then
+    insert into public.blocked (value, kind) values (p_phone, 'phone') on conflict do nothing;
+    insert into public.blocked (value, kind)
+      select distinct d, 'device' from (
+        select device_id d from public.orders where customer_phone = p_phone
+        union select device_id from public.customers where phone = p_phone) x
+      where d is not null
+    on conflict do nothing;
+    update public.orders set status = 'cancelled', updated_at = now() where customer_phone = p_phone and status = 'new';
+  else
+    delete from public.blocked where value = p_phone or value in (
+      select device_id from public.orders where customer_phone = p_phone and device_id is not null
+      union select device_id from public.customers where phone = p_phone and device_id is not null);
+  end if;
+end $$;
+
+-- الزبون بيطلب عن طريق الدالة دي بس، والأسعار بتتحسب من المنيو على السيرفر
+drop function if exists public.place_order(uuid, int, text, text, jsonb, text);
+create or replace function public.place_order(p_session uuid, p_table int, p_name text, p_phone text, p_items jsonb, p_note text default null, p_device text default null)
+returns public.orders language plpgsql security definer set search_path = public as $$
+declare v_items jsonb := '[]'::jsonb; v_total numeric := 0; r record; v_order public.orders; v_other boolean := false;
+begin
+  if p_device is not null and length(p_device) > 64 then raise exception 'invalid device'; end if;
+  if exists (select 1 from public.blocked where value in (p_phone, coalesce(p_device, '-'))) then raise exception 'blocked'; end if;
+  if p_device is not null then
+    if (select count(*) from public.orders where device_id = p_device and status = 'new') >= 3 then raise exception 'too many pending'; end if;
+    if (select count(*) from public.orders where device_id = p_device and created_at > now() - interval '10 minutes') >= 6 then raise exception 'too many orders'; end if;
+    v_other := exists (select 1 from public.orders where customer_phone = p_phone and device_id is not null and device_id <> p_device);
+  end if;
   if p_session is null then raise exception 'invalid session'; end if;
   if p_table is null or p_table < 1 or p_table > 500 then raise exception 'invalid table'; end if;
   if coalesce(length(trim(p_name)), 0) < 2 then raise exception 'invalid name'; end if;
@@ -616,20 +842,22 @@ begin
   end if;
   for r in
     select m.id, m.name,
+           case when m.sugar and (x.e ->> 'opt') in ('زيادة','مظبوط','على الريحة','سادة') then x.e ->> 'opt' end as opt,
            case when m.offer_price is not null and m.offer_price < m.price then m.offer_price else m.price end as price,
-           least(greatest(coalesce((x ->> 'qty')::int, 1), 1), 50) as qty
-    from jsonb_array_elements(p_items) x
-    join public.menu_items m on m.id::text = (x ->> 'id') and m.available
+           least(greatest(coalesce((x.e ->> 'qty')::int, 1), 1), 50) as qty
+    from jsonb_array_elements(p_items) with ordinality x(e, n)
+    join public.menu_items m on m.id::text = (x.e ->> 'id') and m.available
+    order by x.n
   loop
-    v_items := v_items || jsonb_build_object('id', r.id, 'name', r.name, 'price', r.price, 'qty', r.qty);
+    v_items := v_items || jsonb_strip_nulls(jsonb_build_object('id', r.id, 'name', r.name, 'price', r.price, 'qty', r.qty, 'opt', r.opt));
     v_total := v_total + r.price * r.qty;
   end loop;
   if jsonb_array_length(v_items) = 0 then raise exception 'empty order'; end if;
-  insert into public.orders (session_id, table_no, customer_name, customer_phone, items, total, note)
-  values (p_session, p_table, left(trim(p_name), 40), p_phone, v_items, v_total, left(nullif(trim(coalesce(p_note, '')), ''), 300))
+  insert into public.orders (session_id, table_no, customer_name, customer_phone, items, total, note, device_id, other_device)
+  values (p_session, p_table, left(trim(p_name), 40), p_phone, v_items, v_total, left(nullif(trim(coalesce(p_note, '')), ''), 300), p_device, v_other)
   returning * into v_order;
-  insert into public.customers (phone, name) values (p_phone, left(trim(p_name), 40))
-  on conflict (phone) do update set name = excluded.name, last_seen = now();
+  insert into public.customers (phone, name, device_id) values (p_phone, left(trim(p_name), 40), p_device)
+  on conflict (phone) do update set name = excluded.name, last_seen = now(), device_id = coalesce(excluded.device_id, public.customers.device_id);
   return v_order;
 end $$;
 
@@ -644,46 +872,110 @@ language plpgsql security definer set search_path = public as $$
 declare e text := lower(coalesce(auth.jwt() ->> 'email', ''));
 begin
   if e = '' then return false; end if;
-  if not exists (select 1 from public.staff) then insert into public.staff (email) values (e); end if;
+  if not exists (select 1 from public.staff) then insert into public.staff (email, role) values (e, 'owner'); end if;
   return exists (select 1 from public.staff where lower(email) = e);
 end $$;
 
-create or replace function public.list_staff() returns table (email text)
+drop function if exists public.list_staff();
+create or replace function public.list_staff() returns table (email text, role text)
 language sql stable security definer set search_path = public as $$
-  select s.email from public.staff s where public.is_staff() order by s.created_at;
+  select s.email, s.role from public.staff s where public.is_owner() order by s.created_at;
 $$;
 
-create or replace function public.add_staff(p_email text) returns void
+drop function if exists public.add_staff(text);
+-- صاحب المحل بيعمل حساب موظف (أو يغيّر الباسورد) من غير ما يحتاج تأكيد إيميل
+create or replace function public.create_staff(p_username text, p_password text, p_role text) returns void
+language plpgsql security definer set search_path = public, extensions as $$
+declare v_email text; v_id uuid;
+begin
+  if not public.is_owner() then raise exception 'not allowed'; end if;
+  p_username := lower(trim(p_username));
+  if p_username !~ '^[a-z0-9_.-]{3,30}$' then raise exception 'invalid username'; end if;
+  if length(coalesce(p_password, '')) < 6 then raise exception 'weak password'; end if;
+  if p_role not in ('owner','waiter','bar') then raise exception 'invalid role'; end if;
+  v_email := p_username || '@teatime-local.app';
+  select id into v_id from auth.users where email = v_email;
+  if v_id is null then
+    v_id := gen_random_uuid();
+    insert into auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,
+      raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, recovery_token,
+      email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    values ('00000000-0000-0000-0000-000000000000', v_id, 'authenticated', 'authenticated', v_email,
+      extensions.crypt(p_password, extensions.gen_salt('bf')), now(),
+      '{"provider":"email","providers":["email"]}'::jsonb, '{}'::jsonb, now(), now(), '', '', '', '', '', '', '', '');
+    insert into auth.identities (id, user_id, provider_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
+    values (gen_random_uuid(), v_id, v_id::text, jsonb_build_object('sub', v_id::text, 'email', v_email, 'email_verified', true), 'email', now(), now(), now());
+  else
+    update auth.users set encrypted_password = extensions.crypt(p_password, extensions.gen_salt('bf')),
+      email_confirmed_at = coalesce(email_confirmed_at, now()), updated_at = now() where id = v_id;
+  end if;
+  insert into public.staff (email, role) values (v_email, p_role) on conflict (email) do update set role = excluded.role;
+end $$;
+
+create or replace function public.set_staff_role(p_email text, p_role text) returns void
 language plpgsql security definer set search_path = public as $$
 begin
-  if not public.is_staff() then raise exception 'not allowed'; end if;
-  insert into public.staff (email) values (lower(trim(p_email))) on conflict do nothing;
+  if not public.is_owner() then raise exception 'not allowed'; end if;
+  if p_role not in ('owner','waiter','bar') then raise exception 'invalid role'; end if;
+  if lower(p_email) = lower(coalesce(auth.jwt() ->> 'email', '')) then raise exception 'cannot change self'; end if;
+  update public.staff set role = p_role where lower(email) = lower(p_email);
 end $$;
 
 create or replace function public.remove_staff(p_email text) returns void
 language plpgsql security definer set search_path = public as $$
 begin
-  if not public.is_staff() then raise exception 'not allowed'; end if;
+  if not public.is_owner() then raise exception 'not allowed'; end if;
   if lower(p_email) = lower(coalesce(auth.jwt() ->> 'email', '')) then raise exception 'cannot remove self'; end if;
   delete from public.staff where lower(email) = lower(p_email);
 end $$;
 
-grant execute on function public.place_order(uuid, int, text, text, jsonb, text) to anon, authenticated;
+-- ===== التقارير (صاحب المحل بس) — الطلبات المدفوعة بس، بأسعار الأصناف قبل خصم الحساب والخدمة =====
+create or replace function public.sales_items(p_from timestamptz, p_to timestamptz)
+returns table (name text, category text, qty bigint, revenue numeric, orders bigint)
+language sql stable security definer set search_path = public as $$
+  select it ->> 'name', coalesce(m.category, 'أصناف محذوفة'),
+         sum((it ->> 'qty')::int), sum((it ->> 'qty')::int * (it ->> 'price')::numeric), count(distinct o.id)
+  from public.orders o
+  cross join lateral jsonb_array_elements(o.items) it
+  left join public.menu_items m on m.id::text = it ->> 'id'
+  where public.is_owner() and o.status = 'paid' and o.created_at >= p_from and o.created_at < p_to
+  group by 1, 2 order by 4 desc;
+$$;
+
+create or replace function public.sales_daily(p_from timestamptz, p_to timestamptz)
+returns table (day date, orders bigint, revenue numeric, customers bigint)
+language sql stable security definer set search_path = public as $$
+  select (o.created_at at time zone 'Africa/Cairo')::date, count(*), sum(o.total), count(distinct o.customer_phone)
+  from public.orders o
+  where public.is_owner() and o.status = 'paid' and o.created_at >= p_from and o.created_at < p_to
+  group by 1 order by 1;
+$$;
+
+grant execute on function public.place_order(uuid, int, text, text, jsonb, text, text) to anon, authenticated;
+grant execute on function public.block_customer(text, boolean) to authenticated;
 grant execute on function public.get_bill(uuid) to anon, authenticated;
 grant execute on function public.is_staff() to authenticated;
 grant execute on function public.claim_first_staff() to authenticated;
 grant execute on function public.list_staff() to authenticated;
-grant execute on function public.add_staff(text) to authenticated;
+grant execute on function public.my_role() to authenticated;
+grant execute on function public.set_order_status(uuid, text) to authenticated;
+grant execute on function public.close_session(uuid) to authenticated;
+grant execute on function public.is_owner() to authenticated;
+grant execute on function public.create_staff(text, text, text) to authenticated;
+grant execute on function public.set_staff_role(text, text) to authenticated;
+grant execute on function public.sales_items(timestamptz, timestamptz) to authenticated;
+grant execute on function public.sales_daily(timestamptz, timestamptz) to authenticated;
 grant execute on function public.remove_staff(text) to authenticated;
-grant execute on function public.register_customer(text, text) to anon, authenticated;
+grant execute on function public.register_customer(text, text, text) to anon, authenticated;
 grant execute on function public.list_customers() to authenticated;
+grant execute on function public.resume_session(text, int) to anon, authenticated;
 
 do $$ begin
   alter publication supabase_realtime add table public.orders;
 exception when duplicate_object then null; end $$;
 
-insert into public.menu_items (name, category, price, available, sort)
-select * from (values
+insert into public.menu_items (name, category, price, available, sort, sugar)
+select v.*, v.name in ('قهوة تركي','قهوة فرنساوي','قهوة بندق') from (values
   ('شاي','مشروبات ساخنة',10,true,1),
   ('شاي اخضر','مشروبات ساخنة',10,true,2),
   ('كركديه','مشروبات ساخنة',10,true,3),
@@ -1008,7 +1300,7 @@ const SEED = [
   ["بسكوت روشن", "سناكس وحلويات", 55, true],
   ["بسكوت لوتس", "سناكس وحلويات", 120, true],
 ];
-const seedMenu = () => SEED.map((m, i) => ({ id: 'm' + (i + 1), name: m[0], category: m[1], price: m[2], description: '', available: m[3], sort: i + 1, kind: 'item', featured: false, offer_price: null }));
+const seedMenu = () => SEED.map((m, i) => ({ id: 'm' + (i + 1), name: m[0], category: m[1], price: m[2], description: '', available: m[3], sort: i + 1, kind: 'item', featured: false, offer_price: null, sugar: SUGAR_DEFAULT.includes(m[0]) }));
 function dLoad() {
   let s = readLS(LS_DATA);
   if (!s) {
@@ -1025,17 +1317,21 @@ const demoDB = {
   async getSettings() { return dLoad().settings; },
   async saveSettings(v) { const s = dLoad(); s.settings = v; dSave(s); },
   async getMenu(all) { return sortMenu(dLoad().menu.filter(m => all || m.available)); },
-  async placeOrder({ session, table, name, phone, items, note }) {
-    const s = dLoad();
+  async placeOrder({ session, table, name, phone, items, note, device }) {
+    const s = dLoad(); s.blocked = s.blocked || [];
+    if (s.blocked.includes(phone) || (device && s.blocked.includes(device))) throw new Error('blocked');
+    if (device && s.orders.filter(o => o.device_id === device && o.status === 'new').length >= 3) throw new Error('too many pending');
     if (s.orders.some(o => o.session_id === session && o.status === 'paid')) throw new Error('session closed');
     const lines = []; let total = 0;
     items.forEach(x => {
       const m = s.menu.find(m => m.id === x.id && m.available); if (!m) return;
       const qty = Math.min(Math.max(parseInt(x.qty, 10) || 1, 1), 50);
-      lines.push({ id: m.id, name: m.name, price: effPrice(m), qty }); total += effPrice(m) * qty;
+      const opt = m.sugar && SUGAR_OPTS.some(o => o[0] === x.opt) ? x.opt : undefined;
+      lines.push({ id: m.id, name: m.name, price: effPrice(m), qty, ...(opt ? { opt } : {}) }); total += effPrice(m) * qty;
     });
     if (!lines.length) throw new Error('empty order');
-    const o = { id: uid(), order_no: s.seq++, session_id: session, table_no: table, customer_name: name, customer_phone: phone,
+    const other = !!device && s.orders.some(o => o.customer_phone === phone && o.device_id && o.device_id !== device);
+    const o = { id: uid(), order_no: s.seq++, session_id: session, table_no: table, customer_name: name, customer_phone: phone, device_id: device || null, other_device: other,
       items: lines, total, note: (note || '').slice(0, 300) || null, status: 'new', created_at: new Date().toISOString() };
     s.orders.push(o);
       s.customers = s.customers || {};
@@ -1053,14 +1349,20 @@ const demoDB = {
   async saveMenuItem(i) {
     const s = dLoad();
     const row = { name: i.name, category: i.category, price: Number(i.price), description: i.description || '', available: i.available !== false, sort: i.sort || 0,
-      kind: i.kind || 'item', featured: !!i.featured, offer_price: i.offer_price == null || i.offer_price === '' ? null : Number(i.offer_price) };
+      kind: i.kind || 'item', featured: !!i.featured, sugar: !!i.sugar, offer_price: i.offer_price == null || i.offer_price === '' ? null : Number(i.offer_price) };
     if (i.id) Object.assign(s.menu.find(m => m.id === i.id) || {}, row); else s.menu.push({ id: 'm' + Date.now(), ...row });
     dSave(s);
   },
   async deleteMenuItem(id) { const s = dLoad(); s.menu = s.menu.filter(m => m.id !== id); dSave(s); },
   async resetMenu() { const s = dLoad(); s.menu = [...s.menu.filter(m => m.kind === 'offer'), ...seedMenu()]; dSave(s); },
-  async registerCustomer(name, phone) {
+  async resumeSession(phone, table) {
+    const t = Date.now() - 12 * 3600e3;
+    const o = dLoad().orders.filter(o => o.customer_phone === phone && o.table_no === table && ACTIVE.includes(o.status) && new Date(o.created_at) > t).pop();
+    return o ? o.session_id : null;
+  },
+  async registerCustomer(name, phone, device) {
     const s = dLoad(); s.customers = s.customers || {};
+    if ((s.blocked || []).some(b => b === phone || b === device)) throw new Error('blocked');
     const c = s.customers[phone], now = new Date().toISOString();
     if (!c) s.customers[phone] = { phone, name, first_seen: now, last_seen: now, visits: 1, notes: '' };
     else { if (Date.now() - new Date(c.last_seen) > 2 * 3600e3) c.visits++; c.name = name; c.last_seen = now; }
@@ -1070,15 +1372,41 @@ const demoDB = {
     const s = dLoad();
     return Object.values(s.customers || {}).map(c => {
       const os = s.orders.filter(o => o.customer_phone === c.phone), paid = os.filter(o => o.status === 'paid');
-      return { ...c, orders_count: paid.length, total_spent: paid.reduce((a, o) => a + Number(o.total), 0), last_order: os.length ? os[os.length - 1].created_at : null };
+      return { ...c, orders_count: paid.length, total_spent: paid.reduce((a, o) => a + Number(o.total), 0), last_order: os.length ? os[os.length - 1].created_at : null,
+        cancelled_count: os.filter(o => o.status === 'cancelled').length, devices_count: new Set(os.map(o => o.device_id).filter(Boolean)).size, blocked: (s.blocked || []).includes(c.phone) };
     });
   },
   async customerOrders(phone) { return dLoad().orders.filter(o => o.customer_phone === phone).sort((a, b) => b.created_at.localeCompare(a.created_at)); },
+  async blockCustomer(phone, on) {
+    const s = dLoad(); s.blocked = s.blocked || [];
+    const devs = [...new Set(s.orders.filter(o => o.customer_phone === phone).map(o => o.device_id).filter(Boolean))];
+    if (on) { s.blocked = [...new Set([...s.blocked, phone, ...devs])]; s.orders.forEach(o => { if (o.customer_phone === phone && o.status === 'new') o.status = 'cancelled'; }); }
+    else s.blocked = s.blocked.filter(b => b !== phone && !devs.includes(b));
+    dSave(s);
+  },
   async saveCustomerNote(phone, notes) { const s = dLoad(); if (s.customers && s.customers[phone]) { s.customers[phone].notes = notes; dSave(s); } },
   onChange(cb) { window.addEventListener('storage', e => { if (e.key === LS_DATA) cb(); }); },
   async getUser() { return { demo: true }; },
   async signIn() {}, async signUp() {}, async signOut() {},
-  async listStaff() { return []; }, async addStaff() {}, async removeStaff() {},
+  async listStaff() { return []; }, async createStaff() {}, async setStaffRole() {}, async removeStaff() {},
+  async myRole() { return 'owner'; },
+  async salesItems(from, to) {
+    const s = dLoad(), m = new Map();
+    s.orders.filter(o => o.status === 'paid' && new Date(o.created_at) >= from && new Date(o.created_at) < to).forEach(o => o.items.forEach(i => {
+      const mi = s.menu.find(x => x.id === i.id), cat = mi ? mi.category : 'أصناف محذوفة', k = i.name + '|' + cat;
+      const x = m.get(k) || { name: i.name, category: cat, qty: 0, revenue: 0, orders: new Set() };
+      x.qty += i.qty; x.revenue += i.qty * Number(i.price); x.orders.add(o.id); m.set(k, x);
+    }));
+    return [...m.values()].map(x => ({ ...x, orders: x.orders.size })).sort((a, b) => b.revenue - a.revenue);
+  },
+  async salesDaily(from, to) {
+    const m = new Map();
+    dLoad().orders.filter(o => o.status === 'paid' && new Date(o.created_at) >= from && new Date(o.created_at) < to).forEach(o => {
+      const d = new Date(o.created_at), k = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      const x = m.get(k) || { day: k, orders: 0, revenue: 0, customers: new Set() }; x.orders++; x.revenue += Number(o.total); x.customers.add(o.customer_phone); m.set(k, x);
+    });
+    return [...m.values()].map(x => ({ ...x, customers: x.customers.size })).sort((a, b) => a.day.localeCompare(b.day));
+  },
 };
 
 function cloudDB(conn) {
@@ -1098,27 +1426,25 @@ function cloudDB(conn) {
       if (!all) q = q.eq('available', true);
       return chk(await q).map(m => ({ ...m, price: Number(m.price), offer_price: m.offer_price == null ? null : Number(m.offer_price) }));
     },
-    async placeOrder({ session, table, name, phone, items, note }) {
-      return chk(await sb.rpc('place_order', { p_session: session, p_table: table, p_name: name, p_phone: phone, p_items: items, p_note: note || null }));
+    async placeOrder({ session, table, name, phone, items, note, device }) {
+      return chk(await sb.rpc('place_order', { p_session: session, p_table: table, p_name: name, p_phone: phone, p_items: items, p_note: note || null, p_device: device || null }));
     },
     async getBill(session) { return chk(await sb.rpc('get_bill', { p_session: session })) || []; },
     async listOrders() {
       return chk(await sb.from('orders').select('*').or(`created_at.gte."${since24h()}",status.in.(new,preparing,served)`)
         .order('created_at', { ascending: false }).limit(500));
     },
-    async updateOrderStatus(id, status) { chk(await sb.from('orders').update({ status, updated_at: new Date().toISOString() }).eq('id', id)); },
-    async closeSession(session) {
-      chk(await sb.from('orders').update({ status: 'paid', updated_at: new Date().toISOString() }).eq('session_id', session).in('status', ACTIVE));
-    },
+    async updateOrderStatus(id, status) { chk(await sb.rpc('set_order_status', { p_id: id, p_status: status })); },
+    async closeSession(session) { chk(await sb.rpc('close_session', { p_session: session })); },
     async saveMenuItem(i) {
       const row = { name: i.name, category: i.category, price: Number(i.price), description: i.description || null, available: i.available !== false, sort: i.sort || 0,
-        kind: i.kind || 'item', featured: !!i.featured, offer_price: i.offer_price == null || i.offer_price === '' ? null : Number(i.offer_price) };
+        kind: i.kind || 'item', featured: !!i.featured, sugar: !!i.sugar, offer_price: i.offer_price == null || i.offer_price === '' ? null : Number(i.offer_price) };
       chk(i.id ? await sb.from('menu_items').update(row).eq('id', i.id) : await sb.from('menu_items').insert(row));
     },
     async deleteMenuItem(id) { chk(await sb.from('menu_items').delete().eq('id', id)); },
     async resetMenu() {
       chk(await sb.from('menu_items').delete().neq('kind', 'offer'));
-      chk(await sb.from('menu_items').insert(SEED.map((m, i) => ({ name: m[0], category: m[1], price: m[2], available: m[3], sort: i + 1 }))));
+      chk(await sb.from('menu_items').insert(SEED.map((m, i) => ({ name: m[0], category: m[1], price: m[2], available: m[3], sort: i + 1, sugar: SUGAR_DEFAULT.includes(m[0]) }))));
     },
     onChange(cb) { sb.channel('orders-live').on('postgres_changes', { event: '*', schema: 'public', table: 'orders' }, () => cb()).subscribe(); },
     async getUser() {
@@ -1136,17 +1462,23 @@ function cloudDB(conn) {
       await claim();
     },
     async signOut() { await sb.auth.signOut(); },
-    async listStaff() { return (chk(await sb.rpc('list_staff')) || []).map(r => r.email); },
-    async addStaff(username, password) {
-      const tmp = window.supabase.createClient(conn.url, conn.key, { auth: { persistSession: false, autoRefreshToken: false, storageKey: 'tt_tmp' } });
-      const { error } = await tmp.auth.signUp({ email: userToEmail(username), password });
-      if (error && !/registered|exists/i.test(error.message)) throw error;
-      chk(await sb.rpc('add_staff', { p_email: userToEmail(username) }));
+    async listStaff() { return chk(await sb.rpc('list_staff')) || []; },
+    async myRole() { return chk(await sb.rpc('my_role')) || 'owner'; },
+    async createStaff(username, password, role) { chk(await sb.rpc('create_staff', { p_username: username.toLowerCase(), p_password: password, p_role: role })); },
+    async setStaffRole(email, role) { chk(await sb.rpc('set_staff_role', { p_email: email, p_role: role })); },
+    async salesItems(from, to) {
+      return (chk(await sb.rpc('sales_items', { p_from: from.toISOString(), p_to: to.toISOString() })) || []).map(r => ({ ...r, qty: Number(r.qty), revenue: Number(r.revenue), orders: Number(r.orders) }));
+    },
+    async salesDaily(from, to) {
+      return (chk(await sb.rpc('sales_daily', { p_from: from.toISOString(), p_to: to.toISOString() })) || []).map(r => ({ ...r, orders: Number(r.orders), revenue: Number(r.revenue), customers: Number(r.customers) }));
     },
     async removeStaff(email) { chk(await sb.rpc('remove_staff', { p_email: email })); },
-    async registerCustomer(name, phone) { chk(await sb.rpc('register_customer', { p_name: name, p_phone: phone })); },
+    async registerCustomer(name, phone, device) { chk(await sb.rpc('register_customer', { p_name: name, p_phone: phone, p_device: device || null })); },
+    async blockCustomer(phone, on) { chk(await sb.rpc('block_customer', { p_phone: phone, p_on: !!on })); },
+    async resumeSession(phone, table) { return chk(await sb.rpc('resume_session', { p_phone: phone, p_table: table })) || null; },
     async listCustomers() {
-      return (chk(await sb.rpc('list_customers')) || []).map(c => ({ ...c, visits: Number(c.visits), orders_count: Number(c.orders_count), total_spent: Number(c.total_spent) }));
+      return (chk(await sb.rpc('list_customers')) || []).map(c => ({ ...c, visits: Number(c.visits), orders_count: Number(c.orders_count), total_spent: Number(c.total_spent),
+        cancelled_count: Number(c.cancelled_count || 0), devices_count: Number(c.devices_count || 0) }));
     },
     async customerOrders(phone) { return chk(await sb.from('orders').select('*').eq('customer_phone', phone).order('created_at', { ascending: false }).limit(200)); },
     async saveCustomerNote(phone, notes) { chk(await sb.from('customers').update({ notes: notes || null }).eq('phone', phone)); },
@@ -1187,15 +1519,28 @@ function customerApp() {
   }
   function newSession(name, phone) { session = { id: uid(), name, phone, started: Date.now() }; writeLS(SKEY, session); }
 
-  $('#regForm').addEventListener('submit', e => {
+  const DEVICE = getDeviceId();
+  const BLOCKED_MSG = 'معلش، مش هنقدر نستقبل طلبات من الرقم ده أونلاين — اطلب من الكاشير مباشرة.';
+  async function startVisit(name, phone) {
+    try { await DB.registerCustomer(name, phone, DEVICE); }
+    catch (err) { if (/blocked/.test(String(err && err.message))) throw err; console.warn('register', err); }
+    let resumed = null;
+    try { resumed = await DB.resumeSession(phone, table); } catch (err) { console.warn('resume', err); }
+    if (resumed) { session = { id: resumed, name, phone, started: Date.now() }; writeLS(SKEY, session); }
+    else newSession(name, phone);
+  }
+  $('#regForm').addEventListener('submit', async e => {
     e.preventDefault();
     const name = $('#name').value.trim(), phone = normPhone($('#phone').value);
     if (name.length < 2) return ($('#regErr').textContent = 'اكتب اسمك من فضلك');
     if (!/^\+?\d{8,15}$/.test(phone)) return ($('#regErr').textContent = 'رقم الموبايل مش صحيح');
     $('#regErr').textContent = '';
+    const btn = $('#regForm button'); btn.disabled = true;
+    try { await startVisit(name, phone); }
+    catch (err) { btn.disabled = false; return ($('#regErr').textContent = BLOCKED_MSG); }
+    btn.disabled = false;
     writeLS('tt_customer', { name, phone });
-    DB.registerCustomer(name, phone).catch(e => console.warn('register', e));
-    newSession(name, phone); openMenu();
+    openMenu();
   });
 
   async function openMenu() {
@@ -1206,51 +1551,123 @@ function customerApp() {
     }
     renderMenu(); show('menu');
   }
+  $('#root').appendChild($('#tpl-opt').content.cloneNode(true));
+  const CAT_EMOJI = [[/ساخن|سخن/, '☕'], [/كوكتيل|فريش/, '🍹'], [/عصا?ير/, '🧃'], [/سموزي/, '🥤'], [/ميلك|شيك/, '🥛'], [/صودا/, '🫧'], [/آيس كريم|ايس كريم/, '🍨'],
+    [/فرابيه|آيس كوفي|ايس كوفي/, '🧋'], [/زبادي/, '🥣'], [/وافل/, '🧇'], [/تلاج/, '🧊'], [/سناك|حلوي/, '🍫'], [/شاي/, '🍵'], [/قهوة/, '☕'], [/عرض|عروض/, '🔥']];
+  const ITEM_EMOJI = [[/شاي|ينسون|كركديه|جنزبيل|قرفة|سيدر|فور سيزون/, '🍵'], [/قهوة|اسبريسو|كوفي|لاتيه|موكا|نسكافيه|كابتشينو|ماكياتو|كورتادو|فلات/, '☕'],
+    [/شوكلت|شوكليت|شيكولات|اوريو|نوتيلا/, '🍫'], [/سحلب/, '🥛'], [/مانج/, '🥭'], [/فراول/, '🍓'], [/ليمون/, '🍋'], [/برتقال/, '🍊'], [/بطيخ/, '🍉'], [/موز/, '🍌'],
+    [/كيوي/, '🥝'], [/افوجادو/, '🥑'], [/جوافة/, '🍐'], [/مياه/, '💧'], [/ريد بول|باور|فولت|V7|DD|بيريل|فيروز/, '🥫']];
+  const catEmoji = c => (CAT_EMOJI.find(([r]) => r.test(c)) || [0, '🍽️'])[1];
+  const itemEmoji = m => (m.kind === 'offer' ? '🔥' : (ITEM_EMOJI.find(([r]) => r.test(m.name)) || [0, catEmoji(m.category)])[1]);
+  const norm = t => String(t || '').toLowerCase().replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
   const items = () => menu.filter(m => m.kind !== 'offer');
   const hotList = () => [...menu.filter(m => m.kind === 'offer'), ...items().filter(hasOffer)];
   const starList = () => items().filter(m => m.featured);
   const cats = () => [...new Set(items().map(m => m.category))];
+  const catId = c => 'sec-' + cats().indexOf(c);
+  let query = '';
+
+  /* السلة: المفتاح = id أو id~السكر */
+  const keyOf = (id, opt) => opt ? id + '~' + opt : String(id);
+  const parseKey = k => { const i = k.indexOf('~'); return i < 0 ? { id: k, opt: '' } : { id: k.slice(0, i), opt: k.slice(i + 1) }; };
+  const qtyOf = id => Object.entries(cart).reduce((a, [k, q]) => a + (parseKey(k).id === String(id) ? q : 0), 0);
+  function changeKey(k, d) { const q = (cart[k] || 0) + d; if (q <= 0) delete cart[k]; else cart[k] = Math.min(q, 50); }
+  function decItem(id) { const k = Object.keys(cart).reverse().find(k => parseKey(k).id === String(id)); if (k) changeKey(k, -1); }
+
   function itemHTML(m, v) {
-    const q = cart[m.id] || 0, e = effPrice(m), p = Number(m.price);
+    const q = qtyOf(m.id), e = effPrice(m), p = Number(m.price);
     const tags = (m.kind === 'offer' ? '<span class="tag hot">🔥 عرض</span>' : '')
       + (hasOffer(m) ? `<span class="tag hot">خصم ${Math.round((1 - e / p) * 100)}%</span>` : '')
       + (m.featured && v !== 'star' ? '<span class="tag star">⭐ الأكثر مبيعاً</span>' : '');
-    return `<div class="item ${m.kind === 'offer' ? 'offer' : ''}" data-id="${esc(m.id)}" data-v="${v || 'row'}"><div class="item-info"><b>${esc(m.name)}</b>${tags ? `<div class="tags">${tags}</div>` : ''}${m.description ? `<small>${esc(m.description)}</small>` : ''}<span class="price">${money(e)}${hasOffer(m) ? `<span class="old">${money(p)}</span>` : ''}</span></div>${
+    return `<div class="item ${m.kind === 'offer' ? 'offer' : ''}" data-id="${esc(m.id)}" data-v="${v || 'row'}">
+      <div class="item-main"><span class="ico">${itemEmoji(m)}</span><div class="item-info"><b>${esc(m.name)}</b>${tags ? `<div class="tags">${tags}</div>` : ''}${m.description ? `<small>${esc(m.description)}</small>` : ''}${m.sugar ? '<span class="sugar-hint">☕ بتختار السكر</span>' : ''}<span class="price">${money(e)}${hasOffer(m) ? `<span class="old">${money(p)}</span>` : ''}</span></div></div>${
       q ? `<div class="qty"><button data-a="inc" aria-label="زوّد">+</button><b>${q}</b><button data-a="dec" aria-label="قلّل">−</button></div>` : `<button class="btn add" data-a="inc">أضف +</button>`}</div>`;
   }
   function renderMenu() {
     const cs = cats(), hot = hotList(), star = starList();
-    if (cat && !cs.includes(cat) && !(cat === '__hot' && hot.length) && !(cat === '__star' && star.length)) cat = null;
-    $('#cats').innerHTML = [`<button data-c="" class="chip ${cat ? '' : 'on'}">الكل</button>`,
-      hot.length ? `<button data-c="__hot" class="chip ${cat === '__hot' ? 'on' : ''}">🔥 العروض</button>` : '',
-      star.length ? `<button data-c="__star" class="chip ${cat === '__star' ? 'on' : ''}">⭐ الأكثر مبيعاً</button>` : '',
-      ...cs.map(c => `<button data-c="${esc(c)}" class="chip ${c === cat ? 'on' : ''}">${esc(c)}</button>`)].join('');
-    let html = '';
-    if (cat === '__hot') html = `<h3 class="cat-title">🔥 العروض والخصومات</h3>` + hot.map(m => itemHTML(m, 'hot')).join('');
-    else if (cat === '__star') html = `<h3 class="cat-title">⭐ الأكثر مبيعاً</h3>` + star.map(m => itemHTML(m, 'star')).join('');
-    else {
-      if (!cat) {
-        html += `<img class="menu-logo" src="${LOGO_FULL}" alt="${esc(S.cafe_name)}">`;
-        if (S.announcement) html += `<div class="promo"><span class="big">🎉</span><span>${esc(S.announcement)}</span></div>`;
-        if (Number(S.bill_discount) > 0) html += `<div class="promo"><span class="big">🏷️</span><span>${esc(discLabel())} على الحساب كله</span></div>`;
-        if (hot.length) html += `<h3 class="sec-title">🔥 العروض والخصومات</h3><div class="hscroll">${hot.map(m => itemHTML(m, 'hot')).join('')}</div>`;
-        if (star.length) html += `<h3 class="sec-title">⭐ الأكثر مبيعاً</h3><div class="hscroll">${star.map(m => itemHTML(m, 'star')).join('')}</div>`;
-      }
-      html += (cat ? [cat] : cs).map(c => `<h3 class="cat-title">${esc(c)}</h3>` + items().filter(m => m.category === c).map(m => itemHTML(m, 'row')).join('')).join('');
+    $('#qClear').hidden = !query;
+    if (query) {
+      const q = norm(query), res = menu.filter(m => norm(m.name).includes(q) || norm(m.category).includes(q));
+      $('#cats').hidden = true;
+      $('#menuList').innerHTML = res.length
+        ? `<h3 class="cat-title">🔍 نتايج البحث (${res.length})</h3>` + res.map(m => itemHTML(m, 'row')).join('')
+        : `<div class="no-res"><div style="font-size:40px">🤷‍♂️</div>مفيش حاجة بالاسم ده — جرّب كلمة تانية</div>`;
+      return;
     }
-    $('#menuList').innerHTML = html || '<p class="muted center">المنيو فاضي حالياً</p>';
+    $('#cats').hidden = false;
+    $('#cats').innerHTML = [hot.length ? `<button data-go="sec-hot" class="chip">🔥 العروض</button>` : '',
+      star.length ? `<button data-go="sec-star" class="chip">⭐ الأكثر مبيعاً</button>` : '',
+      ...cs.map(c => `<button data-go="${catId(c)}" class="chip">${catEmoji(c)} ${esc(c)}</button>`)].join('');
+    let html = session ? `<div class="hello">👋 أهلاً يا <b>${esc(session.name)}</b></div>` : '';
+    html += `<img class="menu-logo" src="${LOGO_FULL}" alt="${esc(S.cafe_name)}">`;
+    if (S.announcement) html += `<div class="promo"><span class="big">🎉</span><span>${esc(S.announcement)}</span></div>`;
+    if (Number(S.bill_discount) > 0) html += `<div class="promo"><span class="big">🏷️</span><span>${esc(discLabel())} على الحساب كله</span></div>`;
+    if (hot.length) html += `<section class="cat-sec" id="sec-hot"><h3 class="sec-title">🔥 العروض والخصومات</h3><div class="hscroll">${hot.map(m => itemHTML(m, 'hot')).join('')}</div></section>`;
+    if (star.length) html += `<section class="cat-sec" id="sec-star"><h3 class="sec-title">⭐ الأكثر مبيعاً</h3><div class="hscroll">${star.map(m => itemHTML(m, 'star')).join('')}</div></section>`;
+    if (cs.length > 1) html += `<h3 class="sec-title">📋 الأقسام</h3><div class="cat-grid">${cs.map(c => `<button class="cat-tile" data-go="${catId(c)}"><span class="e">${catEmoji(c)}</span>${esc(c)}<small>${items().filter(m => m.category === c).length} صنف</small></button>`).join('')}</div>`;
+    html += cs.map(c => `<section class="cat-sec" id="${catId(c)}"><h3 class="cat-title">${catEmoji(c)} ${esc(c)}</h3>` + items().filter(m => m.category === c).map(m => itemHTML(m, 'row')).join('') + '</section>').join('');
+    $('#menuList').innerHTML = cs.length || hot.length ? html : '<p class="muted center">المنيو فاضي حالياً</p>';
+    watchSections();
   }
-  $('#cats').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; cat = b.dataset.c || null; renderMenu(); window.scrollTo(0, 0); };
-  function change(id, d) { const q = (cart[id] || 0) + d; if (q <= 0) delete cart[id]; else cart[id] = Math.min(q, 50); }
+  /* التنقل بين الأقسام + تعليم القسم الحالي */
+  let spyOff = 0, observer = null;
+  function markChip(id) {
+    $$('#cats .chip').forEach(ch => ch.classList.toggle('on', ch.dataset.go === id));
+    const on = $('#cats .chip.on'); if (on) { const box = $('#cats'); box.scrollLeft += (on.getBoundingClientRect().left + on.offsetWidth / 2) - (box.getBoundingClientRect().left + box.clientWidth / 2); }
+  }
+  function goTo(id) {
+    const el = document.getElementById(id); if (!el) return;
+    spyOff = Date.now() + 900; markChip(id);
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function watchSections() {
+    if (observer) observer.disconnect();
+    if (!('IntersectionObserver' in window)) return;
+    const top = (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topH')) || 70) + 110;
+    observer = new IntersectionObserver(es => {
+      if (Date.now() < spyOff) return;
+      const vis = es.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if (vis) markChip(vis.target.id);
+    }, { rootMargin: `-${top}px 0px -55% 0px` });
+    $$('#menuList .cat-sec').forEach(s => observer.observe(s));
+  }
+  $('#cats').onclick = e => { const b = e.target.closest('[data-go]'); if (b) goTo(b.dataset.go); };
+  let qT;
+  $('#q').addEventListener('input', e => { clearTimeout(qT); qT = setTimeout(() => { query = e.target.value.trim(); renderMenu(); window.scrollTo(0, 0); }, 150); });
+  $('#q').addEventListener('keydown', e => { if (e.key === 'Enter') e.target.blur(); });
+  $('#qClear').onclick = () => { $('#q').value = ''; query = ''; renderMenu(); };
+
+  function refreshItem(id) {
+    const m = menu.find(x => String(x.id) === String(id));
+    $$('#menuList .item').forEach(el => { if (el.dataset.id === String(id)) el.outerHTML = itemHTML(m, el.dataset.v); });
+    updateCartBar();
+  }
   $('#menuList').onclick = e => {
+    const t = e.target.closest('[data-go]'); if (t) return goTo(t.dataset.go);
     const b = e.target.closest('[data-a]'); if (!b) return;
     const id = b.closest('.item').dataset.id, m = menu.find(x => String(x.id) === id);
-    change(id, b.dataset.a === 'inc' ? 1 : -1);
-    $$('#menuList .item').forEach(el => { if (el.dataset.id === id) el.outerHTML = itemHTML(m, el.dataset.v); });
-    updateCartBar();
+    if (b.dataset.a === 'inc') { if (m.sugar) return pickSugar(m); changeKey(keyOf(id), 1); }
+    else decItem(id);
+    refreshItem(id);
   };
 
-  const cartLines = () => Object.entries(cart).map(([id, qty]) => ({ m: menu.find(x => String(x.id) === id), qty })).filter(l => l.m);
+  /* اختيار السكر */
+  function pickSugar(m, cb) {
+    $('#optTitle').textContent = m.name;
+    $('#optGrid').innerHTML = SUGAR_OPTS.map(([o, cubes, hint]) => `<button class="opt-btn" data-o="${esc(o)}"><span class="cubes">${cubes ? '<i></i>'.repeat(cubes) : '<em>—</em>'}</span>${esc(o)}<small>${esc(hint)}</small></button>`).join('');
+    $('#optGrid').onclick = e => {
+      const b = e.target.closest('[data-o]'); if (!b) return;
+      changeKey(keyOf(m.id, b.dataset.o), 1);
+      $('#optSheet').hidden = true;
+      refreshItem(m.id); toast(`اتضاف ${m.name} — ${b.dataset.o} ✓`);
+      if (cb) cb();
+    };
+    $('#optSheet').hidden = false;
+  }
+  $('#optClose').onclick = () => $('#optSheet').hidden = true;
+  $('#optSheet').onclick = e => { if (e.target.id === 'optSheet') $('#optSheet').hidden = true; };
+
+  const cartLines = () => Object.entries(cart).map(([k, qty]) => { const p = parseKey(k); return { key: k, opt: p.opt, m: menu.find(x => String(x.id) === p.id), qty }; }).filter(l => l.m);
   const cartTotal = () => cartLines().reduce((s, l) => s + effPrice(l.m) * l.qty, 0);
   function updateCartBar() {
     const n = cartLines().reduce((s, l) => s + l.qty, 0);
@@ -1259,7 +1676,7 @@ function customerApp() {
   }
   function renderCart() {
     const ls = cartLines(); if (!ls.length) return closeCart();
-    $('#cartItems').innerHTML = ls.map(l => `<div class="cart-line" data-id="${esc(l.m.id)}"><div><b>${esc(l.m.name)}</b><small>${money(effPrice(l.m))}${hasOffer(l.m) ? `<span class="old">${money(l.m.price)}</span>` : ''}</small></div><div class="qty"><button data-a="inc">+</button><b>${l.qty}</b><button data-a="dec">−</button></div><span class="line-total">${money(effPrice(l.m) * l.qty)}</span></div>`).join('');
+    $('#cartItems').innerHTML = ls.map(l => `<div class="cart-line" data-k="${esc(l.key)}"><div><b>${esc(l.m.name)}</b>${l.opt ? ` <span class="opt-lbl">${esc(l.opt)}</span>` : ''}<small>${money(effPrice(l.m))}${hasOffer(l.m) ? `<span class="old">${money(l.m.price)}</span>` : ''}</small></div><div class="qty"><button data-a="inc">+</button><b>${l.qty}</b><button data-a="dec">−</button></div><span class="line-total">${money(effPrice(l.m) * l.qty)}</span></div>`).join('');
     $('#sheetTotal').textContent = money(cartTotal());
     $('#discHint').hidden = !(Number(S.bill_discount) > 0);
     $('#discHint').textContent = '🏷️ ' + discLabel() + ' هيتخصم من الحساب';
@@ -1270,13 +1687,13 @@ function customerApp() {
   $('#sheet').onclick = e => { if (e.target.id === 'sheet') closeCart(); };
   $('#cartItems').onclick = e => {
     const b = e.target.closest('[data-a]'); if (!b) return;
-    change(b.closest('.cart-line').dataset.id, b.dataset.a === 'inc' ? 1 : -1); renderCart(); updateCartBar();
+    changeKey(b.closest('.cart-line').dataset.k, b.dataset.a === 'inc' ? 1 : -1); renderCart(); updateCartBar();
   };
   $('#sendOrder').onclick = async () => {
     const btn = $('#sendOrder'); if (btn.disabled) return;
-    const items = cartLines().map(l => ({ id: l.m.id, qty: l.qty })); if (!items.length) return;
+    const items = cartLines().map(l => ({ id: l.m.id, qty: l.qty, ...(l.opt ? { opt: l.opt } : {}) })); if (!items.length) return;
     btn.disabled = true; btn.textContent = 'بنبعت…'; $('#orderErr').textContent = '';
-    const payload = () => ({ session: session.id, table, name: session.name, phone: session.phone, items, note: $('#orderNote').value.trim() });
+    const payload = () => ({ session: session.id, table, name: session.name, phone: session.phone, items, note: $('#orderNote').value.trim(), device: DEVICE });
     try {
       try { await DB.placeOrder(payload()); }
       catch (e) { if (!String(e.message).includes('session closed')) throw e; newSession(session.name, session.phone); await DB.placeOrder(payload()); }
@@ -1285,17 +1702,26 @@ function customerApp() {
     } catch (e) {
       console.error(e);
       const m = String(e.message);
-      $('#orderErr').textContent = m.includes('empty') ? 'الأصناف دي مبقتش متاحة، حدّث الصفحة.' : m.includes('too many') ? 'طلبات كتير ورا بعض، استنى شوية وجرّب تاني.' : 'حصلت مشكلة ومبعتناش الطلب، جرّب تاني.';
+      $('#orderErr').textContent = m.includes('empty') ? 'الأصناف دي مبقتش متاحة، حدّث الصفحة.'
+        : m.includes('blocked') ? BLOCKED_MSG
+        : m.includes('too many pending') ? 'عندك طلبات لسه الكاشير ماستلمهاش — استنى لما يبدأ يحضّرها وبعدين اطلب تاني.'
+        : m.includes('too many') ? 'طلبات كتير ورا بعض، استنى شوية وجرّب تاني.' : 'حصلت مشكلة ومبعتناش الطلب، جرّب تاني.';
       if (m.includes('empty')) menu = [];
     } finally { btn.disabled = false; btn.textContent = 'ابعت الطلب'; }
   };
 
-  async function openBill() { show('bill'); if (!$('#billBody').innerHTML) $('#billBody').innerHTML = '<p class="muted center">بنجيب حسابك…</p>'; await renderBill(); }
+  async function openBill() {
+    if (!session) { show('register'); return; }
+    show('bill'); $('#billBody').innerHTML = '<p class="muted center">بنجيب حسابك…</p>'; await renderBill(); }
   async function renderBill() {
     if (!session) return;
     let orders;
     try { orders = await DB.getBill(session.id); }
-    catch (e) { console.error(e); $('#billBody').innerHTML = '<p class="err center">مقدرناش نجيب الحساب، هنحاول تاني…</p>'; return; }
+    catch (e) {
+      console.error(e);
+      $('#billBody').innerHTML = `<div class="empty"><div class="big">📶</div><h3>مقدرناش نجيب الحساب</h3><p class="muted sm" dir="ltr">${esc((e && e.message) || e)}</p><button class="btn primary" id="retryBill">حاول تاني</button></div>`;
+      return;
+    }
     if (!orders.length) { $('#billBody').innerHTML = `<div class="empty"><div class="big">🧾</div><h2>لسه مطلبتش حاجة</h2><button class="btn primary" id="toMenu">اطلب من المنيو</button></div>`; return; }
     const valid = orders.filter(o => o.status !== 'cancelled');
     const sub = valid.reduce((s, o) => s + Number(o.total), 0), { disc, svc, total } = billCalc(sub);
@@ -1305,7 +1731,7 @@ function customerApp() {
         <div class="bill-total"><small>${allPaid ? 'اتدفع' : 'المطلوب'}</small><b>${money(total)}</b></div></div>
       ${allPaid ? `<div class="card paid-box">✅ الحساب اتدفع — شكراً لزيارتك!<button class="btn primary block" id="newVisit">طلب جديد</button></div>` : ''}
       ${orders.map(o => `<div class="card"><div class="order-head"><b>طلب #${o.order_no}</b><span class="badge ${STATUS[o.status][1]}">${STATUS[o.status][0]}</span></div>
-        ${o.items.map(i => `<div class="line"><span>${i.qty} × ${esc(i.name)}</span><span>${money(i.price * i.qty)}</span></div>`).join('')}
+        ${o.items.map(i => `<div class="line"><span>${i.qty} × ${ihtml(i)}</span><span>${money(i.price * i.qty)}</span></div>`).join('')}
         ${o.note ? `<p class="note">📝 ${esc(o.note)}</p>` : ''}
         <div class="line total"><span class="muted">${timeStr(o.created_at)}</span><b>${money(o.total)}</b></div></div>`).join('')}
       <div class="card">
@@ -1318,13 +1744,17 @@ function customerApp() {
   }
   $('#billBody').onclick = e => {
     if (e.target.id === 'toMenu') openMenu();
+    if (e.target.id === 'retryBill') { $('#billBody').innerHTML = '<p class="muted center">بنجيب حسابك…</p>'; renderBill(); }
     if (e.target.id === 'newVisit') { newSession(session.name, session.phone); DB.registerCustomer(session.name, session.phone).catch(() => {}); $('#billBody').innerHTML = ''; openMenu(); }
   };
   $('#goMenu').onclick = openMenu;
   $('#goBill').onclick = openBill;
   if (DEMO) DB.onChange(() => { if (current === 'bill') renderBill(); });
 
+  const setTopH = () => { const h = $('.topbar'); if (h) document.documentElement.style.setProperty('--topH', h.offsetHeight + 'px'); };
+  window.addEventListener('resize', setTopH);
   (async function init() {
+    setTimeout(setTopH, 50);
     $$('.tableNo').forEach(e => e.textContent = table);
     $('#demoBanner').hidden = !DEMO;
     applyName();
@@ -1337,7 +1767,14 @@ function customerApp() {
     session = readLS(SKEY);
     if (session && (!session.id || Date.now() - session.started > 12 * 3600e3)) session = null;
     if (session) { try { const b = await DB.getBill(session.id); if (b.length && b.every(o => !ACTIVE.includes(o.status))) session = null; } catch (e) {} }
-    if (!session) { localStorage.removeItem(SKEY); show('register'); } else openMenu();
+    if (session) return openMenu();
+    try { localStorage.removeItem(SKEY); } catch (e) {}
+    // الجهاز ده اتسجّل قبل كده؟ ندخله على المنيو على طول من غير ما يكتب حاجة
+    if (cust && cust.name && cust.phone) {
+      try { await startVisit(cust.name, cust.phone); return openMenu(); }
+      catch (err) { show('register'); $('#regErr').textContent = BLOCKED_MSG; return; }
+    }
+    show('register');
   })();
 }
 
@@ -1350,6 +1787,17 @@ function cashierApp() {
   let orders = [], menu = [], seen = new Set(), flash = new Set(), firstLoad = true, soundOn = false, actx = null, loading = false, again = false, titleT, started = false, authMode = 'in';
   const baseTitle = () => 'الكاشير — ' + S.cafe_name;
   const views = ['setup', 'login', 'app'];
+  let ROLE = 'owner';
+  const ROLE_NAME = { owner: 'صاحب المحل', waiter: 'ويتر', bar: 'بار' };
+  const ROLE_TABS = { owner: ['orders', 'bills', 'menu', 'customers', 'reports', 'qr', 'settings'], waiter: ['orders', 'bills'], bar: ['orders'] };
+  const isOwner = () => ROLE === 'owner';
+  function applyRole() {
+    const allowed = ROLE_TABS[ROLE] || ROLE_TABS.bar;
+    $$('.tabs button').forEach(b => b.hidden = !allowed.includes(b.dataset.tab));
+    $$('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === 'orders'));
+    $$('.tab').forEach(t => t.hidden = t.id !== 'tab-orders');
+    $('#roleLbl').innerHTML = DEMO ? '' : `<span class="role-tag">${ROLE_NAME[ROLE] || ROLE}</span>`;
+  }
   function view(v) { views.forEach(x => $('#' + x).hidden = x !== v); $('#cashTop').hidden = v !== 'app'; }
 
   /* ----- إعداد الاتصال ----- */
@@ -1381,12 +1829,6 @@ function cashierApp() {
   $('#toSetup').onclick = e => { e.preventDefault(); showSetup(true); };
 
   /* ----- الدخول ----- */
-  $$('[data-auth]').forEach(b => b.onclick = () => {
-    authMode = b.dataset.auth;
-    $$('[data-auth]').forEach(x => x.classList.toggle('on', x === b));
-    $('#loginBtn').textContent = authMode === 'up' ? 'اعمل الحساب وادخل' : 'دخول';
-    $('#upHint').hidden = authMode !== 'up'; $('#loginErr').textContent = '';
-  });
   $('#loginForm').onsubmit = async e => {
     e.preventDefault(); $('#loginErr').textContent = '';
     const u = $('#lgUser').value.trim(), p = $('#lgPw').value, btn = $('#loginBtn');
@@ -1414,7 +1856,7 @@ function cashierApp() {
     if (/failed to fetch|network/i.test(m)) return 'مفيش اتصال بـ Supabase — اتأكد من النت.';
     if (mode === 'up' && /password/i.test(m)) return 'الباسورد لازم 6 حروف على الأقل.';
     if (code === 'invalid_credentials' || /invalid login credentials/i.test(m))
-      return 'اسم المستخدم أو الباسورد غلط. لو دي أول مرة، اعمل الحساب من تاب "أول مرة؟ اعمل الحساب".';
+      return 'اسم المستخدم أو الباسورد غلط.';
     return 'حصلت مشكلة في الدخول.';
   }
 
@@ -1429,13 +1871,62 @@ function cashierApp() {
       o.connect(g).connect(actx.destination); o.start(t + d); o.stop(t + d + 0.22);
     });
   }
+  /* صوت الطلبات */
+  const VKEY = 'tt_voice';
+  const vPref = Object.assign({ style: 'normal', voice: '', rate: '1' }, readLS(VKEY) || {});
+  if (vPref.style === 'shaabi') vPref.style = 'normal';
+  const saveV = () => writeLS(VKEY, vPref);
+  const arVoices = () => ('speechSynthesis' in window ? speechSynthesis.getVoices() : []).filter(v => /^ar/i.test(v.lang || ''));
+  function scoreVoice(v) {
+    const n = (v.name + ' ' + v.lang).toLowerCase();
+    return (/ar[-_]eg/.test(n) || /egypt/.test(n) ? 100 : 0) + (/shakir/.test(n) ? 25 : /salma/.test(n) ? 20 : 0) + (/natural|online|neural|google/.test(n) ? 10 : 0);
+  }
+  function pickVoice() {
+    const vs = arVoices(); if (!vs.length) return null;
+    return vs.find(v => v.voiceURI === vPref.voice) || vs.slice().sort((a, b) => scoreVoice(b) - scoreVoice(a))[0];
+  }
+  const NUMW = ['صفر', 'واحد', 'اتنين', 'تلاتة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'تمانية', 'تسعة', 'عشرة', 'حداشر', 'اتناشر', 'تلتاشر', 'أربعتاشر', 'خمستاشر', 'ستاشر', 'سبعتاشر', 'تمنتاشر', 'تسعتاشر', 'عشرين'];
+  const numW = n => NUMW[n] || String(n);
+  const speakName = n => String(n).replace(/Tea Time/gi, 'تي تايم').replace(/[()]/g, ' ');
+  function itemsText(items) {
+    const parts = items.map(i => `${numW(i.qty)} ${speakName(i.name)}${i.opt ? ' ' + i.opt : ''}`);
+    return parts.length > 1 ? parts.slice(0, -1).join('، ') + '، و' + parts[parts.length - 1] : parts[0] || '';
+  }
+  function orderSpeech(o, style) {
+    const t = numW(o.table_no), it = itemsText(o.items || []);
+    return `طلب جديد، ترابيزة ${t}. ${it}`;
+  }
   function speak(text) {
     if (!('speechSynthesis' in window)) return;
-    const u = new SpeechSynthesisUtterance(text); u.lang = 'ar-EG'; u.rate = 0.95;
-    const v = speechSynthesis.getVoices().find(v => (v.lang || '').toLowerCase().startsWith('ar')); if (v) u.voice = v;
+    const u = new SpeechSynthesisUtterance(text), v = pickVoice();
+    u.lang = v ? v.lang : 'ar-EG';
+    if (v) u.voice = v;
+    u.rate = Number(vPref.rate) || 1;
     speechSynthesis.speak(u);
   }
-  if ('speechSynthesis' in window) { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); }
+  function fillVoices() {
+    const vs = arVoices(), sel = $('#voicePick'); if (!sel) return;
+    const best = pickVoice();
+    sel.innerHTML = vs.length
+      ? vs.sort((a, b) => scoreVoice(b) - scoreVoice(a)).map(v => `<option value="${esc(v.voiceURI)}" ${best && v.voiceURI === best.voiceURI ? 'selected' : ''}>${esc(v.name)} (${esc(v.lang)})${scoreVoice(v) >= 100 ? ' 🇪🇬' : ''}</option>`).join('')
+      : '<option value="">مفيش صوت عربي على الجهاز ده</option>';
+    const hasEg = vs.some(v => scoreVoice(v) >= 100);
+    $('#voiceWarn').hidden = hasEg;
+    $('#voiceWarn').textContent = vs.length
+      ? 'مفيش صوت مصري على المتصفح ده — النطق هيبقى فصحى. للهجة مصرية افتح الكاشير من Microsoft Edge.'
+      : 'مفيش صوت عربي خالص على المتصفح ده. افتح الكاشير من Microsoft Edge، أو نزّل اللغة العربية من إعدادات الجهاز (Text-to-Speech).';
+  }
+  $('#voiceStyle').value = vPref.style;
+  $('#voiceStyle').onchange = e => { vPref.style = e.target.value; saveV(); };
+  $('#voiceRate').value = String(vPref.rate);
+  $('#voiceRate').onchange = e => { vPref.rate = e.target.value; saveV(); };
+  $('#voicePick').onchange = e => { vPref.voice = e.target.value; saveV(); };
+  $('#voiceTest').onclick = () => {
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    speak(orderSpeech({ table_no: 4, items: [{ qty: 2, name: 'شاي' }, { qty: 1, name: 'قهوة تركي' }] }, 'normal'));
+  };
+  if ('speechSynthesis' in window) { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = fillVoices; }
+  setTimeout(fillVoices, 500);
   $('#soundBtn').onclick = () => {
     actx = actx || new (window.AudioContext || window.webkitAudioContext)(); actx.resume(); soundOn = true;
     $('#soundBtn').textContent = '🔔 الصوت شغّال'; $('#soundBtn').classList.replace('warn', 'ok');
@@ -1447,7 +1938,7 @@ function cashierApp() {
     list.forEach(o => { flash.add(o.id); setTimeout(() => { flash.delete(o.id); renderOrders(); }, 12000); });
     if (soundOn) {
       beep();
-      if ($('#speakChk').checked) setTimeout(() => list.forEach(o => speak(`طلب جديد، ترابيزة ${o.table_no}. ${o.items.map(i => `${i.qty} ${i.name}`).join('، ')}`)), 900);
+      if (vPref.style !== 'bell') setTimeout(() => list.forEach(o => speak(orderSpeech(o, vPref.style))), 900);
     }
     document.title = `🔔 (${list.length}) طلب جديد — ${S.cafe_name}`;
     clearTimeout(titleT); titleT = setTimeout(() => document.title = baseTitle(), 15000);
@@ -1458,12 +1949,14 @@ function cashierApp() {
   async function start() {
     if (started) return; started = true;
     view('app'); $('#logoutBtn').hidden = DEMO;
+    try { ROLE = (await DB.myRole()) || 'owner'; } catch (e) { console.warn('role', e); ROLE = 'owner'; }
+    applyRole();
     try { S = { ...S, ...(await DB.getSettings()) }; } catch (e) {}
     applyName(); document.title = baseTitle();
     loadOrders();
     try { DB.onChange(() => loadOrders()); } catch (e) { console.error(e); }
     setInterval(loadOrders, 20000); setInterval(renderOrders, 30000);
-    loadMenu(); initQR(); initSettings();
+    if (isOwner()) { loadMenu(); initQR(); initSettings(); initReports(); }
   }
 
   /* ----- الطلبات ----- */
@@ -1476,21 +1969,21 @@ function cashierApp() {
       orders.forEach(o => seen.add(o.id));
       if (!firstLoad && fresh.length) notify(fresh);
       firstLoad = false; $('#connErr').hidden = true;
-      renderOrders(); renderBills(); loadCustomers();
+      renderOrders(); renderBills(); if (isOwner()) loadCustomers();
     } catch (e) { console.error(e); $('#connErr').hidden = false; }
     finally { loading = false; if (again) { again = false; loadOrders(); } }
   }
   function ago(t) { const m = Math.floor((Date.now() - new Date(t)) / 60000); return m < 1 ? 'دلوقتي' : m < 60 ? `من ${m} د` : `من ${Math.floor(m / 60)} س`; }
   function orderCard(o) {
     const acts = {
-      new: `<button class="btn primary sm" data-act="preparing">ابدأ التحضير</button><button class="btn ghost sm danger-t" data-act="cancelled">إلغاء</button>`,
+      new: `<button class="btn primary sm" data-act="preparing">ابدأ التحضير</button>${ROLE === 'bar' ? '' : `<button class="btn ghost sm danger-t" data-act="cancelled">إلغاء</button><button class="btn ghost sm danger-t" data-act="block" title="إلغاء الطلب وحظر الرقم والجهاز">🚫 وهمي</button>`}`,
       preparing: `<button class="btn ok sm" data-act="served">اتقدّم ✓</button><button class="btn ghost sm" data-act="new">رجوع</button>`,
       served: `<button class="btn ghost sm" data-act="preparing">رجوع</button>`,
     }[o.status] || '';
     return `<div class="card ocard ${flash.has(o.id) ? 'flash' : ''}" data-id="${esc(o.id)}">
       <div class="order-head"><b>ترابيزة ${o.table_no}</b><span class="muted sm">#${o.order_no} · ${ago(o.created_at)}</span></div>
-      <div class="cust">${esc(o.customer_name)} · <a href="tel:${esc(o.customer_phone)}" dir="ltr">${esc(o.customer_phone)}</a> ${visitBadge(o.customer_phone)}</div>
-      <ul class="items">${o.items.map(i => `<li><b>${i.qty}×</b> ${esc(i.name)}</li>`).join('')}</ul>
+      <div class="cust">${esc(o.customer_name)} · <a href="tel:${esc(o.customer_phone)}" dir="ltr">${esc(o.customer_phone)}</a> ${visitBadge(o.customer_phone)} ${deviceBadge(o)}</div>
+      <ul class="items">${o.items.map(i => `<li><b>${i.qty}×</b> ${ihtml(i)}</li>`).join('')}</ul>
       ${o.note ? `<p class="note">📝 ${esc(o.note)}</p>` : ''}
       <div class="order-foot"><b>${money(o.total)}</b><div class="acts">${acts}</div></div></div>`;
   }
@@ -1505,6 +1998,13 @@ function cashierApp() {
   $('#tab-orders').onclick = async e => {
     const b = e.target.closest('[data-act]'); if (!b) return;
     const id = b.closest('.ocard').dataset.id, st = b.dataset.act;
+    if (st === 'block') {
+      const o = orders.find(x => x.id === id); if (!o) return;
+      if (!confirm(`طلب وهمي؟ هيتلغي وهيتحظر الرقم ${o.customer_phone} والجهاز اللي طلب منه، فمش هيقدر يطلب أونلاين تاني.`)) return;
+      b.disabled = true;
+      try { await DB.updateOrderStatus(id, 'cancelled'); await DB.blockCustomer(o.customer_phone, true); toast('اتلغى واتحظر 🚫'); } catch (err) { alert(dbErr(err)); }
+      loadOrders(); return;
+    }
     if (st === 'cancelled' && !confirm('إلغاء الطلب ده؟')) return;
     b.disabled = true;
     try { await DB.updateOrderStatus(id, st); } catch (err) { alert('حصلت مشكلة: ' + err.message); }
@@ -1523,7 +2023,7 @@ function cashierApp() {
   }
   function mergeItems(os) {
     const m = new Map();
-    os.forEach(o => o.items.forEach(i => { const k = i.name + '|' + i.price, x = m.get(k) || { name: i.name, price: Number(i.price), qty: 0 }; x.qty += i.qty; m.set(k, x); }));
+    os.forEach(o => o.items.forEach(i => { const k = i.name + '|' + (i.opt || '') + '|' + i.price, x = m.get(k) || { name: i.name, opt: i.opt, price: Number(i.price), qty: 0 }; x.qty += i.qty; m.set(k, x); }));
     return [...m.values()];
   }
   function renderBills() {
@@ -1534,15 +2034,15 @@ function cashierApp() {
     const openTotal = ss.reduce((s, x) => s + billCalc(x.total).total, 0);
     $('#stats').innerHTML = `
       <div class="stat"><small>حسابات مفتوحة</small><b>${ss.length}</b></div>
-      <div class="stat"><small>قيمة المفتوح</small><b>${money(openTotal)}</b></div>
+      <div class="stat"><small>قيمة المفتوح</small><b>${money(openTotal)}</b></div>` + (isOwner() ? `
       <div class="stat"><small>مبيعات النهارده (اتدفع)</small><b>${money(billCalc(paidTotal).total)}</b></div>
-      <div class="stat"><small>طلبات مدفوعة النهارده</small><b>${paid.length}</b></div>`;
+      <div class="stat"><small>طلبات مدفوعة النهارده</small><b>${paid.length}</b></div>` : '');
     $('#billsList').innerHTML = ss.map(s => {
       const { disc, svc, total } = billCalc(s.total);
       return `<div class="card bcard" data-s="${esc(s.id)}">
         <div class="order-head"><b>ترابيزة ${s.table}</b><span class="muted sm">${s.orders.length} طلب</span></div>
         <div class="cust">${esc(s.name)} · <a href="tel:${esc(s.phone)}" dir="ltr">${esc(s.phone)}</a></div>
-        <ul class="items">${mergeItems(s.orders).map(i => `<li><b>${i.qty}×</b> ${esc(i.name)} <span class="muted">— ${money(i.price * i.qty)}</span></li>`).join('')}</ul>
+        <ul class="items">${mergeItems(s.orders).map(i => `<li><b>${i.qty}×</b> ${ihtml(i)} <span class="muted">— ${money(i.price * i.qty)}</span></li>`).join('')}</ul>
         ${disc ? `<div class="line disc-line"><span>🏷️ ${esc(discLabel())}</span><span>− ${money(disc)}</span></div>` : ''}
         ${svc ? `<div class="line"><span>خدمة ${S.service_percent}%</span><span>${money(svc)}</span></div>` : ''}
         <div class="order-foot"><b class="big-total">${money(total)}</b>
@@ -1565,7 +2065,7 @@ function cashierApp() {
     w.document.write(`<!doctype html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><title>فاتورة</title>
       <style>body{font-family:Tahoma,Arial,sans-serif;width:72mm;margin:0 auto;padding:8px;font-size:13px}h2{text-align:center;margin:4px 0}.c{text-align:center}table{width:100%;border-collapse:collapse}td{padding:4px 0;border-bottom:1px dashed #999}td:last-child{text-align:left;white-space:nowrap}.t td{font-weight:bold;font-size:15px;border:0;padding-top:8px}</style></head>
       <body><div class="c"><img src="${LOGO_FULL}" style="width:38mm"></div><h2>${esc(S.cafe_name)}</h2><p class="c">ترابيزة ${s.table} — ${esc(s.name)}<br>${new Date().toLocaleString('ar-EG')}</p>
-      <table>${mergeItems(s.orders).map(i => `<tr><td>${i.qty} × ${esc(i.name)}</td><td>${money(i.price * i.qty)}</td></tr>`).join('')}
+      <table>${mergeItems(s.orders).map(i => `<tr><td>${i.qty} × ${esc(iname(i))}</td><td>${money(i.price * i.qty)}</td></tr>`).join('')}
       ${disc ? `<tr><td>${esc(discLabel())}</td><td>− ${money(disc)}</td></tr>` : ''}
       ${svc ? `<tr><td>خدمة ${S.service_percent}%</td><td>${money(svc)}</td></tr>` : ''}
       <tr class="t"><td>الإجمالي</td><td>${money(total)}</td></tr></table>
@@ -1585,7 +2085,7 @@ function cashierApp() {
     $('#catList').innerHTML = cats.map(c => `<option value="${esc(c)}">`).join('');
     const row = (m, star) => `
       <div class="mrow ${m.available ? '' : 'off'}" data-id="${esc(m.id)}">
-        <div><b>${esc(m.name)}</b>${m.description ? `<small class="muted"> — ${esc(m.description)}</small>` : ''}</div>
+        <div><b>${esc(m.name)}</b>${m.sugar ? ' <span class="opt-lbl">☕ سكر</span>' : ''}${m.description ? `<small class="muted"> — ${esc(m.description)}</small>` : ''}</div>
         ${priceCell(m)}
         ${star ? `<button class="star-btn ${m.featured ? 'on' : ''}" data-m="star" title="الأكثر مبيعاً">⭐</button>` : '<span></span>'}
         <label class="switch" title="متاح للطلب"><input type="checkbox" data-m="toggle" ${m.available ? 'checked' : ''}><span></span></label>
@@ -1609,7 +2109,7 @@ function cashierApp() {
     const id = $('#mId').value, ex = menu.find(m => String(m.id) === id);
     const offer = $('#mOffer').value === '' ? null : Number($('#mOffer').value);
     const item = { id: id || undefined, name: $('#mName').value.trim(), category: $('#mCat').value.trim(), price: Number($('#mPrice').value),
-      description: $('#mDesc').value.trim(), offer_price: offer, featured: $('#mFeat').checked, kind: 'item',
+      description: $('#mDesc').value.trim(), offer_price: offer, featured: $('#mFeat').checked, sugar: $('#mSugar').checked, kind: 'item',
       available: ex ? ex.available : true, sort: ex ? ex.sort : menu.length + 1 };
     if (!item.name || !item.category || !(item.price >= 0)) return;
     if (offer != null && offer >= item.price) return alert('السعر بعد الخصم لازم يكون أقل من السعر الأصلي');
@@ -1640,7 +2140,7 @@ function cashierApp() {
       $('#oCancel').hidden = false; $('#offerForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else if (b.dataset.m === 'edit') {
       $('#mId').value = m.id; $('#mName').value = m.name; $('#mCat').value = m.category; $('#mPrice').value = m.price; $('#mDesc').value = m.description || '';
-      $('#mOffer').value = hasOffer(m) ? m.offer_price : ''; $('#mFeat').checked = !!m.featured;
+      $('#mOffer').value = hasOffer(m) ? m.offer_price : ''; $('#mFeat').checked = !!m.featured; $('#mSugar').checked = !!m.sugar;
       $('#mfTitle').textContent = 'تعديل: ' + m.name; $('#mCancel').hidden = false; $('#menuForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else if (b.dataset.m === 'del' && confirm(`حذف "${m.name}"؟`)) {
       try { await DB.deleteMenuItem(m.id); } catch (err) { alert(dbErr(err)); }
@@ -1659,6 +2159,7 @@ function cashierApp() {
     const c = custMap.get(phone); if (!c) return '';
     return c.visits > 1 ? `<span class="badge s-served">🔁 زيارة ${c.visits}</span>` : '<span class="badge s-prep">🆕 عميل جديد</span>';
   }
+  const deviceBadge = o => o.other_device ? '<span class="badge s-new" title="الرقم ده اتطلب بيه قبل كده من موبايل تاني">⚠️ موبايل مختلف</span>' : '';
   const startToday = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
   function when(t) {
     if (!t) return '—';
@@ -1687,10 +2188,11 @@ function cashierApp() {
       <div class="stat"><small>كل العملاء</small><b>${customers.length}</b></div>
       <div class="stat"><small>عملاء جداد النهارده</small><b>${newToday}</b></div>
       <div class="stat"><small>زاروا النهارده</small><b>${customers.filter(c => new Date(c.last_seen) >= t0).length}</b></div>
-      <div class="stat"><small>عملاء رجعوا تاني</small><b>${customers.filter(c => c.visits > 1).length}</b></div>`;
+      <div class="stat"><small>عملاء رجعوا تاني</small><b>${customers.filter(c => c.visits > 1).length}</b></div>
+      <div class="stat"><small>محظورين</small><b>${customers.filter(c => c.blocked).length}</b></div>`;
     const list = filteredCustomers();
     $('#custBody').innerHTML = list.map(c => `<tr data-p="${esc(c.phone)}">
-        <td><b>${esc(c.name)}</b> ${c.notes ? '📝' : ''} ${c.visits > 1 ? '' : '<span class="badge s-prep">جديد</span>'}</td>
+        <td><b>${esc(c.name)}</b> ${c.notes ? '📝' : ''} ${c.blocked ? '<span class="badge s-cancel">🚫 محظور</span>' : c.visits > 1 ? '' : '<span class="badge s-prep">جديد</span>'}</td>
         <td dir="ltr"><a href="tel:${esc(c.phone)}">${esc(c.phone)}</a><a class="wa" href="${waLink(c.phone)}" target="_blank" rel="noopener">WhatsApp</a></td>
         <td>${c.visits}</td><td>${c.orders_count}</td><td>${money(c.total_spent)}</td><td>${when(c.last_seen)}</td></tr>`).join('')
       || `<tr><td colspan="6" class="muted center">${customers.length ? 'مفيش نتايج للبحث ده' : 'لسه مفيش عملاء — أول ما حد يسجّل اسمه ورقمه من الـQR هيظهر هنا'}</td></tr>`;
@@ -1719,12 +2221,19 @@ function cashierApp() {
         <div><small>المشتريات</small><b>${money(spent)}</b></div>
         <div><small>متوسط الطلب</small><b>${paid.length ? money(spent / paid.length) : '—'}</b></div>
       </div>
-      ${top.length ? `<p><b>بيحب:</b> ${top.map(i => `${esc(i.name)} (${i.qty})`).join('، ')}</p>` : ''}
+      ${top.length ? `<p><b>بيحب:</b> ${top.map(i => `${esc(iname(i))} (${i.qty})`).join('، ')}</p>` : ''}
       <label>ملاحظات عن العميل<textarea id="custNote" rows="2" maxlength="500" placeholder="مثلاً: بيحب القهوة سادة، عيد ميلاده في مارس…">${esc(c.notes || '')}</textarea></label>
-      <div class="acts"><button class="btn primary sm" id="saveNote">حفظ الملاحظات</button></div>
+      <div class="acts"><button class="btn primary sm" id="saveNote">حفظ الملاحظات</button>
+        <button class="btn ${c.blocked ? 'ok' : 'ghost danger-t'} sm" id="toggleBlock">${c.blocked ? '✅ فك الحظر' : '🚫 حظر العميل'}</button></div>
+      <p class="muted sm">طلبات اتلغت: ${c.cancelled_count || 0} · موبايلات طلب منها: ${c.devices_count || 0}${c.blocked ? ' · <b class="danger-t">محظور — مش هيقدر يطلب أونلاين</b>' : ''}</p>
       <h3 style="margin-top:14px">سجل الطلبات (${os.length})</h3>
       ${os.map(o => `<div class="hist"><div class="order-head"><span>${new Date(o.created_at).toLocaleString('ar-EG', { dateStyle: 'medium', timeStyle: 'short' })} · ترابيزة ${o.table_no}</span><span class="badge ${ST[o.status][1]}">${ST[o.status][0]}</span></div>
-        <div>${o.items.map(i => `${i.qty}× ${esc(i.name)}`).join('، ')}</div><b>${money(o.total)}</b></div>`).join('') || '<p class="muted">لسه مطلبش حاجة.</p>'}`;
+        <div>${o.items.map(i => `${i.qty}× ${ihtml(i)}`).join('، ')}</div><b>${money(o.total)}</b></div>`).join('') || '<p class="muted">لسه مطلبش حاجة.</p>'}`;
+    $('#toggleBlock').onclick = async () => {
+      const on = !c.blocked;
+      if (on && !confirm(`حظر ${c.name}؟ مش هيقدر يطلب أونلاين من الرقم ده ولا من الموبايلات اللي طلب منها، وطلباته الجديدة هتتلغي.`)) return;
+      try { await DB.blockCustomer(phone, on); toast(on ? 'اتحظر 🚫' : 'اتفك الحظر ✓'); $('#custModal').hidden = true; await loadCustomers(); loadOrders(); } catch (err) { alert(dbErr(err)); }
+    };
     $('#saveNote').onclick = async () => {
       try { await DB.saveCustomerNote(phone, $('#custNote').value.trim()); toast('اتحفظت ✓'); loadCustomers(); } catch (err) { alert(dbErr(err)); }
     };
@@ -1815,22 +2324,113 @@ function cashierApp() {
   async function loadStaff() {
     try {
       const me = await DB.currentEmail(), list = await DB.listStaff();
-      $('#staffList').innerHTML = list.map(em => `<div class="staff-row"><span dir="ltr"><b>${esc(emailToUser(em))}</b></span>${em === me
-        ? '<span class="muted sm">إنت</span>' : `<button class="btn ghost sm danger-t" data-rm="${esc(em)}">إزالة</button>`}</div>`).join('');
-    } catch (e) { $('#staffList').innerHTML = '<p class="err">مقدرناش نجيب الحسابات</p>'; }
+      $('#staffList').innerHTML = list.map(r => `<div class="staff-row"><span dir="ltr"><b>${esc(emailToUser(r.email))}</b></span>${r.email === me
+        ? `<span class="muted sm">إنت · ${ROLE_NAME[r.role] || r.role}</span>`
+        : `<span class="acts"><select data-role="${esc(r.email)}">${Object.entries(ROLE_NAME).map(([k, v]) => `<option value="${k}" ${k === r.role ? 'selected' : ''}>${v}</option>`).join('')}</select>
+           <button class="btn ghost sm danger-t" data-rm="${esc(r.email)}">إزالة</button></span>`}</div>`).join('');
+    } catch (e) { $('#staffList').innerHTML = `<p class="err">${esc(dbErr(e))}</p>`; }
   }
   $('#staffList').onclick = async e => {
     const b = e.target.closest('[data-rm]'); if (!b) return;
-    if (!confirm(`إزالة ${emailToUser(b.dataset.rm)} من الكاشير؟`)) return;
-    try { await DB.removeStaff(b.dataset.rm); loadStaff(); } catch (err) { alert(err.message); }
+    if (!confirm(`إزالة ${emailToUser(b.dataset.rm)}؟ مش هيقدر يدخل الشاشة تاني.`)) return;
+    try { await DB.removeStaff(b.dataset.rm); loadStaff(); } catch (err) { alert(dbErr(err)); }
+  };
+  $('#staffList').onchange = async e => {
+    const sel = e.target.closest('[data-role]'); if (!sel) return;
+    try { await DB.setStaffRole(sel.dataset.role, sel.value); toast('اتغيّرت الصلاحية ✓'); } catch (err) { alert(dbErr(err)); loadStaff(); }
   };
   $('#staffForm').onsubmit = async e => {
     e.preventDefault(); $('#staffErr').textContent = '';
-    const u = $('#stUser').value.trim(), p = $('#stPw').value;
-    if (!validLogin(u)) return ($('#staffErr').textContent = 'اسم المستخدم بالإنجليزي والأرقام بس');
+    const u = $('#stUser').value.trim().toLowerCase(), p = $('#stPw').value, role = $('#stRole').value;
+    if (!validLogin(u)) return ($('#staffErr').textContent = 'اسم المستخدم بالإنجليزي والأرقام بس (3 حروف على الأقل)');
     if (p.length < 6) return ($('#staffErr').textContent = 'الباسورد 6 حروف على الأقل');
-    try { await DB.addStaff(u, p); $('#staffForm').reset(); toast('اتضاف ✓ — يدخل باسم المستخدم والباسورد دول'); loadStaff(); }
-    catch (err) { $('#staffErr').textContent = 'مقدرناش نضيفه: ' + err.message; }
+    try { await DB.createStaff(u, p, role); $('#staffForm').reset(); toast(`اتضاف ✓ — ${u} (${ROLE_NAME[role]})`); loadStaff(); }
+    catch (err) { $('#staffErr').textContent = 'مقدرناش نضيفه: ' + dbErr(err); }
+  };
+
+  /* ----- التقارير ----- */
+  let repData = { items: [], daily: [], from: null, to: null };
+  const dstr = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  const parseD = v => { const [y, m, d] = v.split('-').map(Number); return new Date(y, m - 1, d); };
+  function setPeriod(p) {
+    const t = new Date(); t.setHours(0, 0, 0, 0);
+    let a = new Date(t), b = new Date(t);
+    if (p === 'yesterday') { a.setDate(a.getDate() - 1); b = new Date(a); }
+    else if (p === 'week') a.setDate(a.getDate() - 6);
+    else if (p === 'month') a = new Date(t.getFullYear(), t.getMonth(), 1);
+    else if (p === 'lastmonth') { a = new Date(t.getFullYear(), t.getMonth() - 1, 1); b = new Date(t.getFullYear(), t.getMonth(), 0); }
+    $('#repFrom').value = dstr(a); $('#repTo').value = dstr(b);
+    $$('#repPeriods .chip').forEach(c => c.classList.toggle('on', c.dataset.p === p));
+    loadReport();
+  }
+  function initReports() { setPeriod('today'); }
+  $('#repPeriods').onclick = e => { const b = e.target.closest('[data-p]'); if (b) setPeriod(b.dataset.p); };
+  $('#repGo').onclick = () => { $$('#repPeriods .chip').forEach(c => c.classList.remove('on')); loadReport(); };
+  async function loadReport() {
+    if (!$('#repFrom').value || !$('#repTo').value) return;
+    let from = parseD($('#repFrom').value), to = parseD($('#repTo').value);
+    if (to < from) [from, to] = [to, from];
+    const toEx = new Date(to); toEx.setDate(toEx.getDate() + 1);
+    $('#repItems').innerHTML = '<tr><td colspan="6" class="muted center">بنحسب…</td></tr>';
+    try {
+      const [items, daily] = await Promise.all([DB.salesItems(from, toEx), DB.salesDaily(from, toEx)]);
+      repData = { items, daily, from, to };
+      renderReport();
+    } catch (e) { console.error(e); $('#repItems').innerHTML = `<tr><td colspan="6" class="err">${esc(dbErr(e))}</td></tr>`; }
+  }
+  const fmtD = d => d.toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric' });
+  function bars(rows, lbl, val, fmt) {
+    const max = Math.max(1, ...rows.map(val));
+    return rows.map(r => `<div class="bar-row"><span>${lbl(r)}</span><div class="bar-track"><div class="bar-fill" style="width:${(val(r) / max * 100).toFixed(1)}%"></div></div><b>${fmt(r)}</b></div>`).join('');
+  }
+  function renderReport() {
+    const { items, daily, from, to } = repData;
+    const revenue = daily.reduce((a, d) => a + d.revenue, 0), ordersN = daily.reduce((a, d) => a + d.orders, 0);
+    const pieces = items.reduce((a, i) => a + i.qty, 0), itemsRev = items.reduce((a, i) => a + i.revenue, 0);
+    $('#repTitle').textContent = `تقرير مبيعات ${S.cafe_name} — من ${fmtD(from)} لحد ${fmtD(to)}`;
+    const top = items.slice().sort((a, b) => b.qty - a.qty)[0];
+    $('#repStats').innerHTML = `
+      <div class="stat"><small>المبيعات</small><b>${money(revenue)}</b></div>
+      <div class="stat"><small>عدد الطلبات</small><b>${ordersN}</b></div>
+      <div class="stat"><small>متوسط الطلب</small><b>${ordersN ? money(revenue / ordersN) : '—'}</b></div>
+      <div class="stat"><small>قطع اتباعت</small><b>${pieces}</b></div>
+      <div class="stat"><small>الأكتر طلباً</small><b style="font-size:17px">${top ? esc(top.name) + ` (${top.qty})` : '—'}</b></div>`;
+    $('#repDaily').innerHTML = daily.length
+      ? bars(daily, d => parseD(d.day).toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric', month: 'numeric' }), d => d.revenue, d => `${money(d.revenue)} <span class="muted sm">(${d.orders})</span>`)
+      : '<p class="muted">مفيش مبيعات في الفترة دي.</p>';
+    const cm = new Map(); items.forEach(i => { const x = cm.get(i.category) || { name: i.category, qty: 0, revenue: 0 }; x.qty += i.qty; x.revenue += i.revenue; cm.set(i.category, x); });
+    const cats = [...cm.values()].sort((a, b) => b.revenue - a.revenue);
+    $('#repCats').innerHTML = cats.length ? bars(cats, c => esc(c.name), c => c.revenue, c => `${money(c.revenue)} <span class="muted sm">(${c.qty})</span>`) : '<p class="muted">—</p>';
+    renderRepItems(itemsRev);
+    // أصناف متاحة ما اتباعتش خالص
+    const sold = new Set(items.map(i => i.name));
+    const zero = menu.filter(m => m.kind !== 'offer' && m.available && !sold.has(m.name));
+    $('#repZero').innerHTML = items.length && zero.length ? `<details><summary class="muted sm">أصناف ما اتباعتش خالص في الفترة دي (${zero.length})</summary><p class="sm">${zero.map(m => esc(m.name)).join('، ')}</p></details>` : '';
+  }
+  function repRows() {
+    const q = $('#repSearch').value.trim(), sort = $('#repSort').value;
+    const rows = repData.items.filter(i => !q || i.name.includes(q) || i.category.includes(q));
+    return rows.sort(sort === 'qty' ? (a, b) => b.qty - a.qty : sort === 'low' ? (a, b) => a.qty - b.qty || a.revenue - b.revenue : (a, b) => b.revenue - a.revenue);
+  }
+  function renderRepItems(total) {
+    total = total ?? repData.items.reduce((a, i) => a + i.revenue, 0);
+    const rows = repRows();
+    $('#repItems').innerHTML = rows.map((i, n) => `<tr><td class="muted">${n + 1}</td><td><b>${esc(i.name)}</b></td><td class="muted">${esc(i.category)}</td>
+      <td class="num">${i.qty}</td><td class="num">${money(i.revenue)}</td><td><span class="pct">${total ? (i.revenue / total * 100).toFixed(1) : 0}%</span></td></tr>`).join('')
+      || '<tr><td colspan="6" class="muted center">مفيش مبيعات في الفترة دي</td></tr>';
+  }
+  $('#repSearch').oninput = () => renderRepItems();
+  $('#repSort').onchange = () => renderRepItems();
+  $('#repPrint').onclick = () => window.print();
+  $('#repCsv').onclick = () => {
+    const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+    const total = repData.items.reduce((a, i) => a + i.revenue, 0);
+    const rows = [['الصنف', 'القسم', 'الكمية', 'المبيعات', 'النسبة %']].concat(repRows().map(i => [i.name, i.category, i.qty, i.revenue, total ? (i.revenue / total * 100).toFixed(1) : 0]));
+    const csv = '﻿' + rows.map(r => r.map(q).join(',')).join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = `tea-time-sales-${$('#repFrom').value}_${$('#repTo').value}.csv`;
+    document.body.appendChild(a); a.click(); a.remove();
   };
 
   /* ----- التابات ----- */
@@ -1838,6 +2438,7 @@ function cashierApp() {
     $$('.tabs button').forEach(x => x.classList.toggle('on', x === b));
     $$('.tab').forEach(t => t.hidden = t.id !== 'tab-' + b.dataset.tab);
     if (b.dataset.tab === 'customers') loadCustomers();
+    if (b.dataset.tab === 'reports') loadReport();
   });
 
   (async function boot() {
